@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'Login_text_field_widget.dart';
 import 'QR_Scanner.dart';
+import 'package:qr_scanner/Signup.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -46,7 +47,7 @@ class Login extends StatelessWidget {
                 print("you clicked login");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => QR_Scanner()),
                 );
               },
               child: Text("Login"),
@@ -58,6 +59,11 @@ class Login extends StatelessWidget {
             RaisedButton(
               onPressed: () {
                 print("you clicked login");
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Signup()),
+                );
               },
               child: Text("Signup"),
               color: Colors.blue,

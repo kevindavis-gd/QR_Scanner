@@ -3,7 +3,7 @@ import 'Login_text_field_widget.dart';
 import 'package:qr_scanner/Login.dart';
 import 'QR_Scanner.dart';
 
-class QR_Scanner extends StatelessWidget {
+class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,26 +26,51 @@ class QR_Scanner extends StatelessWidget {
             //*********************************************************
             Container(
                 child: Text(
-              "Scanner",
+              "SignUp",
               style: TextStyle(height: 1, fontSize: 50, color: Colors.blue),
             )),
-            
-            //****************************************************
-            Image(
-              image: NetworkImage("https://static.thenounproject.com/png/59262-200.png"),
-              width: 300,
-              height: 300,
+
+            //**********************************************
+            SizedBox(height: 30.0),
+            TextFieldWidget(
+              hintText: "First Name",
+              obscureText: false,
+              prefixIconData: Icons.arrow_right,
             ),
 
             //**********************************************
             SizedBox(height: 10.0),
             TextFieldWidget(
-              hintText: "Scanned Code",
-              obscureText: true,
-              prefixIconData: Icons.account_balance,
+              hintText: "Last Name",
+              obscureText: false,
+              prefixIconData: Icons.arrow_right,
             ),
 
-            //************************* *********************
+            //**********************************************
+            SizedBox(height: 10.0),
+            TextFieldWidget(
+              hintText: "Email",
+              obscureText: false,
+              prefixIconData: Icons.arrow_right,
+            ),
+
+            //**********************************************
+            SizedBox(height: 10.0),
+            TextFieldWidget(
+              hintText: "Phone Number",
+              obscureText: false,
+              prefixIconData: Icons.arrow_right,
+            ),
+
+            //**********************************************
+            SizedBox(height: 10.0),
+            TextFieldWidget(
+              hintText: "Password",
+              obscureText: true,
+              prefixIconData: Icons.arrow_right,
+            ),
+
+            //*************************fifth Element *********************
             //add space between text boxes
             SizedBox(height: 30.0),
             RaisedButton(
@@ -56,7 +81,7 @@ class QR_Scanner extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Login()),
                 );
               },
-              child: Text("Scan"),
+              child: Text("Signup"),
               color: Colors.blue,
             )
           ],
