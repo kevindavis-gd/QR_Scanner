@@ -8,9 +8,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.1
+  #barcode_scan:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  #barcode_widget: ^1.5.0
+  #flutter_barcode_scanner: ^1.0.0
   integration_test:
     sdk: flutter
 flutter:

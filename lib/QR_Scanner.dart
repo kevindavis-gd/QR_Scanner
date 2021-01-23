@@ -1,40 +1,43 @@
 import 'dart:ffi';
 import 'package:flutter/material.dart';
-import 'package:qr_scanner/Login.dart';
-
 
 
 class HomePage extends StatelessWidget {
+  String qrCodeResult = "Unknown";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*
-      appBar: AppBar(
-        title: Text("QR Scanner"),
-      ),
-      */
-       
-      body: Center(
-        child: Text(
-          "Here there!",
-          style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+      resizeToAvoidBottomPadding: false,
+      backgroundColor: Colors.white,
+      //resizeToAvoidBottomPadding: false,
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            //*************************first Element *********************
+            //add space between text boxes
+            SizedBox(height: 40.0),
+            Image(
+              image: AssetImage("assets/Semeion.jpg"),
+              width: 200,
+              height: 200,
+            ),
+
+            //*************************fifth Element *********************
+            //add space between text boxes
+            SizedBox(height: 1.0),
+            RaisedButton(
+              onPressed: () {
+                print("you clicked login");
+              },
+              child: Text("Signup"),
+              color: Colors.blue,
+            )
+          ],
         ),
       ),
-      //create a button that has the camera icon and has the text scan.
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.camera_alt),
-        label: Text("Scan"),
-        //when the button is pressed
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Login()),
-          );
-
-        },
-      ),
-      //center the camera button
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   } //Widget build
 } //HomePage

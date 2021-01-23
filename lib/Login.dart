@@ -9,7 +9,8 @@ class Login extends StatelessWidget {
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
       //resizeToAvoidBottomPadding: false,
-      body: Padding(padding: const EdgeInsets.all(30.0),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -17,8 +18,7 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 40.0),
             Image(
-              image: AssetImage(
-                  "assets/Semeion.jpg"),
+              image: AssetImage("assets/Semeion.jpg"),
               width: 200,
               height: 200,
             ),
@@ -51,8 +51,6 @@ class Login extends StatelessWidget {
               },
               child: Text("Login"),
               color: Colors.blue,
-
-
             ),
             //*************************fifth Element *********************
             //add space between text boxes
