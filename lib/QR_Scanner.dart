@@ -1,67 +1,96 @@
-import "package:flutter/material.dart";
-import 'Login_text_field_widget.dart';
-import 'package:qr_scanner/Login.dart';
-import 'QR_Scanner.dart';
+import 'dart:async';
 
-class QR_Scanner extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
+
+class QR_Scanner extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<QR_Scanner> {
+  String _scanBarcode = 'Unknown';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  startBarcodeScanStream() async {
+    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+        "#ff6666", "Cancel", true, ScanMode.BARCODE)
+        .listen((barcode) => print(barcode));
+  }
+
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
-      //resizeToAvoidBottomPadding: false,
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            //*************************first Element *********************
-            //add space between text boxes
-            SizedBox(height: 10.0),
-            Image(
-              image: AssetImage("assets/Semeion.jpg"),
-              width: 100,
-              height: 100,
-            ),
-            //*********************************************************
-            Container(
-                child: Text(
-              "Scanner",
-              style: TextStyle(height: 1, fontSize: 50, color: Colors.blue),
-            )),
-            
-            //****************************************************
-            Image(
-              image: NetworkImage("https://static.thenounproject.com/png/59262-200.png"),
-              width: 300,
-              height: 300,
-            ),
-
-            //**********************************************
-            SizedBox(height: 10.0),
-            TextFieldWidget(
-              hintText: "Scanned Code",
-              obscureText: true,
-              prefixIconData: Icons.account_balance,
-            ),
-
-            //************************* *********************
-            //add space between text boxes
-            SizedBox(height: 30.0),
-            RaisedButton(
-              onPressed: () {
-                print("you clicked login");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
-              },
-              child: Text("Scan"),
-              color: Colors.blue,
-            )
-          ],
-        ),
-      ),
-    );
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: const Text('Barcode scan')),
+            body: Builder(builder: (BuildContext context) {
+              return Container(
+                  alignment: Alignment.center,
+                  child: Flex(
+                      direction: Axis.vertical,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                            onPressed: () => scanBarcodeNormal(),
+                            child: Text("Start barcode scan")),
+                        RaisedButton(
+                            onPressed: () => scanQR(),
+                            child: Text("Start QR scan")),
+                        RaisedButton(
+                            onPressed: () => startBarcodeScanStream(),
+                            child: Text("Start barcode scan stream")),
+                        Text('Scan result : $_scanBarcode\n',
+                            style: TextStyle(fontSize: 20))
+                      ]));
+            })));
   }
 }
