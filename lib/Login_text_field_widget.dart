@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:qr_scanner/Global.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String hintText;
@@ -22,12 +23,12 @@ class TextFieldWidget extends StatelessWidget {
       onChanged: onChanged,
       obscureText: obscureText,
       style: TextStyle(
-        color: Colors.blue,
+        color: Global().textColor1,
         fontSize: 14.0,
       ),
       decoration: InputDecoration(
         labelText: hintText,
-        prefixIcon: Icon(prefixIconData, size: 18, color: Colors.lightBlue),
+        prefixIcon: Icon(prefixIconData, size: 18, color: Global().textColor1),
         filled: true,
         //fillColor: Colors.red,
         enabledBorder: UnderlineInputBorder(
@@ -36,14 +37,14 @@ class TextFieldWidget extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.lightBlue)),
+            borderSide: BorderSide(color: Global().textColor1)),
         suffixIcon: Icon(
           suffixIconData,
           size: 18,
-          color: Colors.blue,
+          color: Global().textColor1,
         ),
-        labelStyle: TextStyle(color: Colors.blue),
-        focusColor: Colors.blue,
+        labelStyle: TextStyle(color: Global().textColor1),
+        focusColor: Global().textColor1,
       ),
     );
   }

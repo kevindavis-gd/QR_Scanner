@@ -2,13 +2,14 @@ import "package:flutter/material.dart";
 import 'Login_text_field_widget.dart';
 import 'package:qr_scanner/Login.dart';
 import 'QR_Scanner.dart';
+import 'package:qr_scanner/Global.dart';
 
 class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Global().backgroundColor,
       //resizeToAvoidBottomPadding: false,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -19,7 +20,7 @@ class Signup extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 10.0),
             Image(
-              image: AssetImage("assets/Semeion.jpg"),
+              image: AssetImage(Global().logo),
               width: 100,
               height: 100,
             ),
@@ -27,7 +28,7 @@ class Signup extends StatelessWidget {
             Container(
                 child: Text(
               "SignUp",
-              style: TextStyle(height: 1, fontSize: 50, color: Colors.blue),
+              style: TextStyle(height: 1, fontSize: 50, color: Global().textColor1),
             )),
 
             //**********************************************
@@ -74,6 +75,7 @@ class Signup extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 30.0),
             RaisedButton(
+              textColor: Global().textColor2,
               onPressed: () {
                 print("you clicked login");
                 Navigator.push(
@@ -82,7 +84,7 @@ class Signup extends StatelessWidget {
                 );
               },
               child: Text("Signup"),
-              color: Colors.blue,
+              color: Global().buttonColor,
             )
           ],
         ),

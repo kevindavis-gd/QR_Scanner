@@ -2,13 +2,15 @@ import "package:flutter/material.dart";
 import 'Login_text_field_widget.dart';
 import 'QR_Scanner.dart';
 import 'package:qr_scanner/Signup.dart';
+import 'package:qr_scanner/Home_Page.dart';
+import "package:qr_scanner/Global.dart";
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Global().backgroundColor,
       //resizeToAvoidBottomPadding: false,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -19,7 +21,7 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 40.0),
             Image(
-              image: AssetImage("assets/Semeion.jpg"),
+              image: AssetImage(Global().profilePicture),
               width: 200,
               height: 200,
             ),
@@ -43,21 +45,24 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 60.0),
             RaisedButton(
+              textColor: Global().textColor2,
               onPressed: () {
                 print("you clicked login");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => QR_Scanner()),
+                  MaterialPageRoute(builder: (context) => Home_Page()),
                 );
               },
               child: Text("Login"),
-              color: Colors.blue,
+              color: Global().buttonColor,
             ),
             //*************************fifth Element *********************
             //add space between text boxes
             SizedBox(height: 1.0),
             RaisedButton(
+                textColor: Global().textColor2,
               onPressed: () {
+
                 print("you clicked login");
 
                 Navigator.push(
@@ -66,7 +71,7 @@ class Login extends StatelessWidget {
                 );
               },
               child: Text("Signup"),
-              color: Colors.blue,
+              color: Global().buttonColor,
             )
           ],
         ),
