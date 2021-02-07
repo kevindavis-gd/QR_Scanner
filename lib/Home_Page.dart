@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'Login_text_field_widget.dart';
 import 'QR_Scanner.dart';
 import 'package:qr_scanner/Signup.dart';
 import 'package:qr_scanner/Global.dart';
+import 'Status.dart';
 
 class Home_Page extends StatelessWidget {
   @override
@@ -57,7 +57,7 @@ class Home_Page extends StatelessWidget {
 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Signup()),
+                      MaterialPageRoute(builder: (context) => Status()),
                     );
                   },
                   child: Text("Status"),
