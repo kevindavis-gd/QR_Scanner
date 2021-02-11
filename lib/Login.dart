@@ -4,8 +4,19 @@ import 'QR_Scanner.dart';
 import 'package:qr_scanner/Signup.dart';
 import 'package:qr_scanner/Home_Page.dart';
 import "package:qr_scanner/Global.dart";
+import "model_user.dart";
+import 'getData.dart';
+import "package:http/http.dart" as http;
+import "dart:async";
+import "dart:convert";
 
 class Login extends StatelessWidget {
+
+
+
+  final TextEditingController nameController = TextEditingController();
+  var EmailField = TextFieldWidget(hintText: "Email", obscureText: false, prefixIconData: Icons.mail_outline,);
+  var PasswordField = TextFieldWidget(hintText: "Password", obscureText: true, prefixIconData: Icons.lock_outline,);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,19 +39,12 @@ class Login extends StatelessWidget {
             //*************************second Element *********************
             //add space between text boxes
             SizedBox(height: 40.0),
-            TextFieldWidget(
-              hintText: "Email",
-              obscureText: false,
-              prefixIconData: Icons.mail_outline,
-            ),
+
+            EmailField,
             //add space between text boxes
             SizedBox(height: 10.0),
             //*************************Third Element *********************
-            TextFieldWidget(
-              hintText: "Password",
-              obscureText: true,
-              prefixIconData: Icons.lock_outline,
-            ),
+            PasswordField,
             //*************************fourthElement *********************
             //add space between text boxes
             SizedBox(height: 60.0),
@@ -60,10 +64,16 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 1.0),
             RaisedButton(
-                textColor: Global().textColor2,
-              onPressed: () {
 
-                print("you clicked login");
+              textColor: Global().textColor2,
+              onPressed: () async
+              {
+                String email = EmailField.getText().text;
+                String name = PasswordField.getText().text;
+                final UserModel user = await createUser ("john","flask");
+
+               print(user.name);
+
 
                 Navigator.push(
                   context,
@@ -77,5 +87,27 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+
+
+  Future<UserModel> createUser (String name, String jobTitle) async {
+    final String apiUrl = "https://reqres.in/api/users";
+
+    final response = await http.post(apiUrl, body:{
+      "name": name,
+      "job" : jobTitle
+    });
+
+    if(response.statusCode == 201)
+      {
+        final String responseString = response.body;
+        return userModelFromJson(responseString);
+      }
+    else
+      {
+        print (response.statusCode);
+        return null;
+      }
+
   }
 }

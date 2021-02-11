@@ -8,6 +8,7 @@ class TextFieldWidget extends StatelessWidget {
   final IconData suffixIconData;
   final bool obscureText;
   final Function onChanged;
+  final TextEditingController Controller = TextEditingController();
 
 //constructor for class
   TextFieldWidget(
@@ -20,6 +21,7 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller:Controller,
       onChanged: onChanged,
       obscureText: obscureText,
       style: TextStyle(
@@ -47,5 +49,10 @@ class TextFieldWidget extends StatelessWidget {
         focusColor: Global().textColor1,
       ),
     );
+  }
+
+  TextEditingController getText()
+  {
+    return Controller;
   }
 }
