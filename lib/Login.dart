@@ -70,9 +70,10 @@ class Login extends StatelessWidget {
               {
                 String email = EmailField.getText().text;
                 String name = PasswordField.getText().text;
-                final UserModel user = await createUser ("john","flask");
+                final String user = await login_User (email,name);
+                print(user);
 
-               print(user.name);
+                //final UserModel user = await createUser ("john","flask");
 
 
                 Navigator.push(
@@ -90,6 +91,32 @@ class Login extends StatelessWidget {
   }
 
 
+
+
+
+  Future<String> login_User (String name, String jobTitle) async {
+    final String apiUrl = "https://reqres.in/api/users";
+
+    final response = await http.post(apiUrl, body:{
+      "name": name,
+      "job" : jobTitle
+    });
+
+    if(response.statusCode == 201)
+    {
+      return response.body ;
+    }
+    else
+    {
+      print (response.statusCode);
+      return "error";
+    }
+
+  }
+
+
+
+  /*
   Future<UserModel> createUser (String name, String jobTitle) async {
     final String apiUrl = "https://reqres.in/api/users";
 
@@ -110,4 +137,6 @@ class Login extends StatelessWidget {
       }
 
   }
+  */
+
 }
