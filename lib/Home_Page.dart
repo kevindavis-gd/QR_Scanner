@@ -3,13 +3,20 @@ import 'QR_Scanner.dart';
 import 'package:qr_scanner/Signup.dart';
 import 'package:qr_scanner/Global.dart';
 import 'Status.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class Home_Page extends StatelessWidget {
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Global().backgroundColor,
       //resizeToAvoidBottomPadding: false,
       body: Padding(
         padding: const EdgeInsets.all(40.0),
@@ -90,3 +97,4 @@ class Home_Page extends StatelessWidget {
     );
   }
 }
+
