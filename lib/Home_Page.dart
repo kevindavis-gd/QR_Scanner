@@ -9,10 +9,6 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class Home_Page extends StatelessWidget {
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

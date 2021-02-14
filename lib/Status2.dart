@@ -2,11 +2,15 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_scanner/Home_Page.dart';
 import 'dart:math';
+import "status_Hour.dart";
+import "package:qr_scanner/Global.dart";
 
 class SimpleBarChart extends StatelessWidget {
   final List<charts.Series> seriesList;
   final bool animate;
+
 
   SimpleBarChart(this.seriesList, {this.animate});
 
@@ -19,8 +23,15 @@ class SimpleBarChart extends StatelessWidget {
     );
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
+    int previousDay = 0;
+    double buttonSize = 16;
+    double buttonSpacing =10;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -28,31 +39,293 @@ class SimpleBarChart extends StatelessWidget {
           backgroundColor: Colors.red,
           title: Text("People at The Gym"),
         ),
-        body: charts.BarChart(seriesList, animate: animate,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 550,
+              child: charts.BarChart(
+                seriesList, animate: animate,
 
-            /// ********************************************************************Add Labels to Chart
-            behaviors: [
-              new charts.ChartTitle(
-                'Day of The Month',
-                behaviorPosition: charts.BehaviorPosition.bottom,
-                titleOutsideJustification:
-                    charts.OutsideJustification.middleDrawArea,
-              )
-            ],
+                /// ********************************************************************Add Labels to Chart
+                behaviors: [
+                  new charts.ChartTitle(
+                    'Day of The Month',
+                    behaviorPosition: charts.BehaviorPosition.top,
+                    titleOutsideJustification:
+                        charts.OutsideJustification.middleDrawArea,
+                  )
+                ],
 
-            /// ********************************************************************Select individual bars
+                /// ********************************************************************Select individual bars
 
-            selectionModels: [
-              new charts.SelectionModelConfig(
-                type: charts.SelectionModelType.info,
-                changedListener: (model) {
-                  print('Change in ${model.selectedDatum.first.datum}');
-                },
-                updatedListener: (model) {
-                  print('updatedListener in $model');
-                },
+                selectionModels: [
+                  new charts.SelectionModelConfig(
+                    type: charts.SelectionModelType.info,
+                    changedListener: (model) {
+                      previousDay = model.selectedDatum.first.index;
+                      print(previousDay);
+                    },
+                    /*
+                    updatedListener: (model) {
+                      print('updatedListener in $model');
+                    },
+                    */
+                  ),
+                ],
               ),
-            ]),
+            ),
+            //**********************************************************
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(21, 2, 2, 0),
+              child: SizedBox(
+                child: Row(
+                  children: [
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((0))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((1))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((2))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((3))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((4))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((5))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((6))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((7))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((8))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((9))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((10))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((11))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((12))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((13))),
+                          );
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -105,16 +378,13 @@ class SimpleBarChart extends StatelessWidget {
       new OrdinalSales(
           DateFormat('dd').format(today.subtract(Duration(days: 13))),
           rng.nextInt(100)),
-      new OrdinalSales(
-          DateFormat('dd').format(today.subtract(Duration(days: 14))),
-          rng.nextInt(100)),
     ];
     return [
       new charts.Series<OrdinalSales, String>(
         id: 'Sales',
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
+        domainFn: (OrdinalSales sales, _) => sales.date,
+        measureFn: (OrdinalSales sales, _) => sales.people,
         data: data,
       )
     ];
@@ -123,8 +393,12 @@ class SimpleBarChart extends StatelessWidget {
 
 /// Sample ordinal data type.
 class OrdinalSales {
-  final String year;
-  final int sales;
+  String date;
+  var people;
 
-  OrdinalSales(this.year, this.sales);
+  OrdinalSales(this.date, this.people);
+
+  String getDate() {
+    return date;
+  }
 }
