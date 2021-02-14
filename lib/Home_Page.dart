@@ -3,6 +3,7 @@ import 'QR_Scanner.dart';
 import 'package:qr_scanner/Signup.dart';
 import 'package:qr_scanner/Global.dart';
 import 'Status.dart';
+import 'package:qr_scanner/Status2.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
@@ -64,7 +65,7 @@ class Home_Page extends StatelessWidget {
 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Status()),
+                      MaterialPageRoute(builder: (context) => SimpleBarChart.withSampleData()),
                     );
                   },
                   child: Text("Status"),

@@ -59,7 +59,7 @@ class _MyAppState extends State<QR_Scanner> {
               ),
               //*************************Second Element *********************
               //add space between text boxes
-              SizedBox(height: 180.0),
+              SizedBox(height: 120.0),
               SizedBox(
                 width: 150.0,
                 height: 50.0,

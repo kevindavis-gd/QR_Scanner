@@ -12,6 +12,7 @@ dependencies:
   fl_chart: ^0.12.2
   charts_flutter:
   http: ^0.12.2
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:
