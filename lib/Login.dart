@@ -70,7 +70,7 @@ class Login extends StatelessWidget {
               {
                 String email = EmailField.getText().text;
                 String name = PasswordField.getText().text;
-                final String user = await login_User (email,name);
+                final String user = await Send_Signup (email,name);
                 print(user);
 
                 //final UserModel user = await createUser ("john","flask");
@@ -94,22 +94,28 @@ class Login extends StatelessWidget {
 
 
 
-  Future<String> login_User (String name, String jobTitle) async {
-    final String apiUrl = "https://reqres.in/api/users";
+  Future<String> Send_Signup (String name, String jobTitle) async {
+    final String apiUrl = "http://10.0.2.2:8000/api/Checkin/";
 
-    final response = await http.post(apiUrl, body:{
-      "name": name,
-      "job" : jobTitle
-    });
+    Map data = {
+      "mustangsID": "M20285574",
+      "buildingID": "Bolin567",
+      "checkIn": "false",
+      "scanTime": "IDK"
+    };
+    String body = json.encode(data);
 
-    if(response.statusCode == 201)
+    final response = await http.post(apiUrl, headers: {"Content-Type": "application/json"},
+      body: body,);
+
+    if(response.statusCode == 200)
     {
       return response.body ;
     }
     else
     {
       print (response.statusCode);
-      return "error";
+      return response.body;
     }
 
   }
