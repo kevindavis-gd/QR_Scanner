@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:qr_scanner/Global.dart';
 import "package:http/http.dart" as http;
-import "dart:async";
-
 
 class QR_Scanner extends StatefulWidget {
   @override
@@ -35,9 +33,6 @@ class _MyAppState extends State<QR_Scanner> {
       _scanBarcode = barcodeScanRes;
     });
   }
-
-
-
 
 
   @override

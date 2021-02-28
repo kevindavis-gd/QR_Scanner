@@ -11,17 +11,13 @@ class statusHour extends StatelessWidget {
    bool animate;
    int previousDay;
 
-
-
   //statusHour(this.seriesList, this.animate, this.previousDay);
-
 
   statusHour.withSampleData(int pDay )
   {
     previousDay = pDay;
     seriesList = _createSampleData();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,51 +90,40 @@ class statusHour extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+  static List<charts.Series<GymActivity, String>> _createSampleData() {
 
     var rng = new Random();
 
     final data = [
-      /*
-      new OrdinalSales("1", rng.nextInt(100)),
-      new OrdinalSales("2", rng.nextInt(100)),
-      new OrdinalSales("3", rng.nextInt(100)),
-      new OrdinalSales("4", rng.nextInt(100)),
-      */
-
-      new OrdinalSales("5", rng.nextInt(100)),
-      new OrdinalSales("6", rng.nextInt(100)),
-      new OrdinalSales("7", rng.nextInt(100)),
-      new OrdinalSales("8", rng.nextInt(100)),
-      new OrdinalSales("9", rng.nextInt(100)),
-      new OrdinalSales("10", rng.nextInt(100)),
-      new OrdinalSales("11", rng.nextInt(100)),
-      new OrdinalSales("12", rng.nextInt(100)),
-      new OrdinalSales("13", rng.nextInt(100)),
-      new OrdinalSales("14", rng.nextInt(100)),
-      new OrdinalSales("15", rng.nextInt(100)),
-      new OrdinalSales("16", rng.nextInt(100)),
-      new OrdinalSales("17", rng.nextInt(100)),
-      new OrdinalSales("18", rng.nextInt(100)),
-      new OrdinalSales("19", rng.nextInt(100)),
-      new OrdinalSales("20", rng.nextInt(100)),
-      new OrdinalSales("21", rng.nextInt(100)),
-      new OrdinalSales("22", rng.nextInt(100)),
-      /*
-      new OrdinalSales("23", rng.nextInt(100)),
-      new OrdinalSales("24", rng.nextInt(100)),
-      */
-       
 
 
+      new GymActivity("5", rng.nextInt(100)),
+      new GymActivity("6", rng.nextInt(100)),
+      new GymActivity("7", rng.nextInt(100)),
+      new GymActivity("8", rng.nextInt(100)),
+      new GymActivity("9", rng.nextInt(100)),
+      new GymActivity("10", rng.nextInt(100)),
+      new GymActivity("11", rng.nextInt(100)),
+      new GymActivity("12", rng.nextInt(100)),
+      new GymActivity("13", rng.nextInt(100)),
+      new GymActivity("14", rng.nextInt(100)),
+      new GymActivity("15", rng.nextInt(100)),
+      new GymActivity("16", rng.nextInt(100)),
+      new GymActivity("17", rng.nextInt(100)),
+      new GymActivity("18", rng.nextInt(100)),
+      new GymActivity("19", rng.nextInt(100)),
+      new GymActivity("20", rng.nextInt(100)),
+      new GymActivity("21", rng.nextInt(100)),
+      new GymActivity("22", rng.nextInt(100)),
+    
 
     ];
     return [
-      new charts.Series<OrdinalSales, String>(
+      new charts.Series<GymActivity, String>(
         id: 'Sales',
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.date,
-        measureFn: (OrdinalSales sales, _) => sales.people,
+        domainFn: (GymActivity sales, _) => sales.date,
+        measureFn: (GymActivity sales, _) => sales.people,
         data: data,
       )
     ];
@@ -146,12 +131,11 @@ class statusHour extends StatelessWidget {
 }
 
 /// Sample ordinal data type.
-class OrdinalSales {
+class GymActivity {
   String date;
   var people;
 
-  OrdinalSales(this.date, this.people);
-
+  GymActivity(this.date, this.people);
   String getDate()
   {
     return date;

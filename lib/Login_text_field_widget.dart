@@ -1,7 +1,7 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:qr_scanner/Global.dart';
 
+// standardized text field widget
 class TextFieldWidget extends StatelessWidget {
   final String hintText;
   final IconData prefixIconData;
@@ -32,7 +32,6 @@ class TextFieldWidget extends StatelessWidget {
         labelText: hintText,
         prefixIcon: Icon(prefixIconData, size: 18, color: Global().textColor1),
         filled: true,
-        //fillColor: Colors.red,
         enabledBorder: UnderlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
@@ -50,7 +49,6 @@ class TextFieldWidget extends StatelessWidget {
       ),
     );
   }
-
   TextEditingController getText()
   {
     return Controller;

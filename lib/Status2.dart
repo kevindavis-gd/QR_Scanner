@@ -2,15 +2,15 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:qr_scanner/Home_Page.dart';
 import 'dart:math';
 import "status_Hour.dart";
 import "package:qr_scanner/Global.dart";
 
+// test chart with random data used until backend is complete
+
 class SimpleBarChart extends StatelessWidget {
   final List<charts.Series> seriesList;
   final bool animate;
-
 
   SimpleBarChart(this.seriesList, {this.animate});
 
@@ -18,13 +18,9 @@ class SimpleBarChart extends StatelessWidget {
   factory SimpleBarChart.withSampleData() {
     return new SimpleBarChart(
       _createSampleData(),
-      // Disable animations for image tests.
       animate: true,
     );
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +72,12 @@ class SimpleBarChart extends StatelessWidget {
               ),
             ),
             //**********************************************************
-
+            // ***************************************************************Buttons for hourly graph
+            //
             Padding(
               padding: const EdgeInsets.fromLTRB(21, 2, 2, 0),
               child: SizedBox(
+                //a row of buttons
                 child: Row(
                   children: [
                     SizedBox(width:buttonSpacing,),
@@ -331,60 +329,60 @@ class SimpleBarChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+  static List<charts.Series<GymActivity, String>> _createSampleData() {
     var today = new DateTime.now();
     var rng = new Random();
 
     final data = [
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 0))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 1))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 2))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 3))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 4))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 5))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 6))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 7))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 8))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 9))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 10))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 11))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 12))),
           rng.nextInt(100)),
-      new OrdinalSales(
+      new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 13))),
           rng.nextInt(100)),
     ];
     return [
-      new charts.Series<OrdinalSales, String>(
+      new charts.Series<GymActivity, String>(
         id: 'Sales',
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.date,
-        measureFn: (OrdinalSales sales, _) => sales.people,
+        domainFn: (GymActivity sales, _) => sales.date,
+        measureFn: (GymActivity sales, _) => sales.people,
         data: data,
       )
     ];
@@ -392,11 +390,11 @@ class SimpleBarChart extends StatelessWidget {
 }
 
 /// Sample ordinal data type.
-class OrdinalSales {
+class GymActivity {
   String date;
   var people;
 
-  OrdinalSales(this.date, this.people);
+  GymActivity(this.date, this.people);
 
   String getDate() {
     return date;

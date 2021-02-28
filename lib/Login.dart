@@ -1,25 +1,22 @@
 import "package:flutter/material.dart";
 import 'Login_text_field_widget.dart';
-import 'QR_Scanner.dart';
 import 'package:qr_scanner/Signup.dart';
 import 'package:qr_scanner/Home_Page.dart';
 import "package:qr_scanner/Global.dart";
-import "model_user.dart";
-import 'getData.dart';
 import "package:http/http.dart" as http;
 import "dart:async";
 import "dart:convert";
 
 class Login extends StatelessWidget {
-
-
-
   final TextEditingController nameController = TextEditingController();
+
   var EmailField = TextFieldWidget(hintText: "Email", obscureText: false, prefixIconData: Icons.mail_outline,);
   var PasswordField = TextFieldWidget(hintText: "Password", obscureText: true, prefixIconData: Icons.lock_outline,);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //do not resize the elements when the keyboard is open
       resizeToAvoidBottomPadding: false,
       backgroundColor: Global().backgroundColor,
       //resizeToAvoidBottomPadding: false,
@@ -27,6 +24,7 @@ class Login extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          //an array that stores multiple widgets
           children: <Widget>[
             //*************************first Element *********************
             //add space between text boxes
@@ -39,11 +37,10 @@ class Login extends StatelessWidget {
             //*************************second Element *********************
             //add space between text boxes
             SizedBox(height: 40.0),
-
             EmailField,
             //add space between text boxes
-            SizedBox(height: 10.0),
             //*************************Third Element *********************
+            SizedBox(height: 10.0),
             PasswordField,
             //*************************fourthElement *********************
             //add space between text boxes
@@ -64,7 +61,6 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 1.0),
             RaisedButton(
-
               textColor: Global().textColor2,
               onPressed: () async
               {
@@ -72,10 +68,6 @@ class Login extends StatelessWidget {
                 String name = PasswordField.getText().text;
                 final String user = await Send_Signup (email,name);
                 print(user);
-
-                //final UserModel user = await createUser ("john","flask");
-
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Signup()),
@@ -90,13 +82,11 @@ class Login extends StatelessWidget {
     );
   }
 
-
-
-
-
+  // function to perform post request
   Future<String> Send_Signup (String name, String jobTitle) async {
+    //url of local database
     final String apiUrl = "http://10.0.2.2:8000/api/Checkin/";
-
+    //request body
     Map data = {
       "mustangsID": "M20285574",
       "buildingID": "Bolin567",
@@ -104,10 +94,8 @@ class Login extends StatelessWidget {
       "scanTime": "IDK"
     };
     String body = json.encode(data);
-
     final response = await http.post(apiUrl, headers: {"Content-Type": "application/json"},
       body: body,);
-
     if(response.statusCode == 200)
     {
       return response.body ;
@@ -117,32 +105,5 @@ class Login extends StatelessWidget {
       print (response.statusCode);
       return response.body;
     }
-
   }
-
-
-
-  /*
-  Future<UserModel> createUser (String name, String jobTitle) async {
-    final String apiUrl = "https://reqres.in/api/users";
-
-    final response = await http.post(apiUrl, body:{
-      "name": name,
-      "job" : jobTitle
-    });
-
-    if(response.statusCode == 201)
-      {
-        final String responseString = response.body;
-        return userModelFromJson(responseString);
-      }
-    else
-      {
-        print (response.statusCode);
-        return null;
-      }
-
-  }
-  */
-
 }
