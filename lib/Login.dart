@@ -10,6 +10,7 @@ import "dart:convert";
 class Login extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
 
+  //entire field saved into variable
   var EmailField = TextFieldWidget(hintText: "Email", obscureText: false, prefixIconData: Icons.mail_outline,);
   var PasswordField = TextFieldWidget(hintText: "Password", obscureText: true, prefixIconData: Icons.lock_outline,);
 
@@ -37,10 +38,12 @@ class Login extends StatelessWidget {
             //*************************second Element *********************
             //add space between text boxes
             SizedBox(height: 40.0),
+            //using the variable for the field
             EmailField,
             //add space between text boxes
             //*************************Third Element *********************
             SizedBox(height: 10.0),
+            //using the variable for the field
             PasswordField,
             //*************************fourthElement *********************
             //add space between text boxes
@@ -64,9 +67,12 @@ class Login extends StatelessWidget {
               textColor: Global().textColor2,
               onPressed: () async
               {
+                //get the text from the email field
                 String email = EmailField.getText().text;
+                //get the text from the Password Field
                 String name = PasswordField.getText().text;
-                //final String user = await Send_Signup (email,name);
+                //call the method to make the post request
+                //final String user = await send_Signup (email,name);
                 //print(user);
                 Navigator.push(
                   context,
@@ -83,10 +89,11 @@ class Login extends StatelessWidget {
   }
 
   // function to perform post request
-  Future<String> Send_Signup (String name, String jobTitle) async {
+  Future<String> send_Signup (String name, String jobTitle) async {
     //url of local database
     final String apiUrl = "http://10.0.2.2:8000/api/Checkin/";
     //request body
+
     Map data = {
       "mustangsID": "M20285574",
       "buildingID": "Bolin567",
