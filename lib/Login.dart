@@ -66,8 +66,8 @@ class Login extends StatelessWidget {
               {
                 String email = EmailField.getText().text;
                 String name = PasswordField.getText().text;
-                final String user = await Send_Signup (email,name);
-                print(user);
+                //final String user = await Send_Signup (email,name);
+                //print(user);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Signup()),
