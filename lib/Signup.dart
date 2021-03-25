@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import "package:flutter/material.dart";
 import 'Login_text_field_widget.dart';
 import 'package:qr_scanner/Login.dart';
@@ -5,6 +7,8 @@ import 'package:qr_scanner/Global.dart';
 import "package:http/http.dart" as http;
 import "dart:async";
 import "dart:convert";
+import "package:rflutter_alert/rflutter_alert.dart";
+import "Global.dart";
 
 class Signup extends StatelessWidget {
 
@@ -85,13 +89,23 @@ class Signup extends StatelessWidget {
                 String password2 = passwordField2.getText().text;
 
                 //call the method to make the post request
-                final String responseBody = await Send_RegisterUser (firstName, lastName, mNumber, email, password1, password2);
-                print(responseBody);
+                final String fullResponse = await Send_RegisterUser (firstName, lastName, mNumber, email, password1, password2);
+                var statusCode = fullResponse.substring(0,3);
+                var responseBody = fullResponse.substring(3,);
 
-               /* Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );*/
+                if (statusCode == "201")
+                  {
+                    displayDialogAlert(context, AlertType.success, "Success", "New User Created");
+
+                  //save the token
+                  var jwt = fullResponse.substring(3,);
+                  if(jwt != null) {
+                    Global().storage.write(key: "jwt", value: jwt);
+                    }
+                  }
+                else{
+                  displayDialogAlert(context, AlertType.error, "Error", responseBody);
+                }
               },
               child: Text("Signup"),
               color: Global().buttonColor,
@@ -105,6 +119,7 @@ class Signup extends StatelessWidget {
 
 
 // function to perform post request
+//****************************************************************************
 Future<String> Send_RegisterUser (String firstName, String lastName, String mNumber, String email, String password1, String password2) async {
   //url of local database
   final String apiUrl = "http://10.0.2.2:8000/users/createUser/";
@@ -118,14 +133,34 @@ Future<String> Send_RegisterUser (String firstName, String lastName, String mNum
     "password2": password2
   };
   String body = json.encode(data);
-  final response = await http.post(apiUrl, headers: {"Content-Type": "application/json"}, body: body,);
-  if(response.statusCode == 200)
-  {
-    return response.body ;
-  }
-  else
-  {
-    print (response.statusCode);
-    return response.body;
-  }
+  final response = await http.post(
+    apiUrl, headers: {"Content-Type": "application/json"}, body: body,);
+  print(response.body);
+  print(response.statusCode.toString());
+  //first 3 char is the response code
+  String fullResponse = response.statusCode.toString() + response.body;
+  return fullResponse;
 }
+
+// alert dialog box function
+//****************************************************************************
+void displayDialogAlert(BuildContext context, AlertType type, title,
+    String text) {
+  Alert(
+    context: context,
+    type: type,
+    title: title,
+    desc: text,
+    buttons: [
+      DialogButton(
+        child: Text(
+          "ok",
+          style: TextStyle(color: Global().textColor2, fontSize: 20),
+        ),
+        onPressed: () async => await Navigator.pop(context),
+        color: Global().buttonColor,
+      )
+    ],
+  ).show();
+}
+

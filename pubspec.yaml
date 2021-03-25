@@ -12,6 +12,8 @@ dependencies:
   fl_chart: ^0.12.2
   charts_flutter:
   http: ^0.12.2
+  rflutter_alert:
+  flutter_secure_storage:
   font_awesome_flutter:
 
 dev_dependencies:

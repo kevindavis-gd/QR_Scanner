@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:qr_scanner/Global.dart';
 import "package:http/http.dart" as http;
+import 'dart:convert' show json, base64, ascii;
 
 class QR_Scanner extends StatefulWidget {
   @override
@@ -32,8 +33,14 @@ class _MyAppState extends State<QR_Scanner> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
-  }
 
+    //if _scanBarcode is -1 that means it was unsuccessful
+    // so do not send information to the database
+    if(_scanBarcode != "-1")
+    {
+      SendQR(_scanBarcode);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,11 +70,9 @@ class _MyAppState extends State<QR_Scanner> {
                 height: 50.0,
                 child: RaisedButton(
                   textColor: Global().textColor2,
-                  onPressed: () {
+                  onPressed: () async {
+                    print(await Global().storage.read(key: "jwt"));
                     scanQR();
-                    print("start");
-                    SendQR(_scanBarcode);
-                    print("finish");
                     },
                   child: Text("Start QR scan"),
                   color: Global().buttonColor,
@@ -86,27 +91,15 @@ class _MyAppState extends State<QR_Scanner> {
 }
 
 
-Future<String> SendQR (String QR) async {
-  final String apiUrl = "http://10.0.2.2:8000/api/Checkin/";
+Future<void> SendQR (String QR) async {
+  final String apiUrl = "http://10.0.2.2:8000/scan/Checkin/";
 
-  final response = await http.post(apiUrl, body:{
-    "mustangsID": "M20285574",
-    "buildingID": "Bolin567",
-    "checkIn": "false",
-    "scanTime": "IDK"
+  final response = await http.post(
+      apiUrl,
+      headers: {"Authorization" : "Token 9d1caef065038bd1ed78f7a162c32a45e6e3c24c"},
+      body:{
+    "mustangsID": await Global().username.read(key: "username"),
+    "buildingID": QR,
   });
-
-  if(response.statusCode == 201)
-  {
-    print("pass");
-    return response.body ;
-
-  }
-  else
-  {
-    print("fail");
-    print (response.statusCode);
-    return "error";
-  }
-
 }
+

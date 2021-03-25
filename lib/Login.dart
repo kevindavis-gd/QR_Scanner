@@ -6,12 +6,16 @@ import "package:qr_scanner/Global.dart";
 import "package:http/http.dart" as http;
 import "dart:async";
 import "dart:convert";
+import 'dart:convert' show json, base64, ascii;
+import "package:rflutter_alert/rflutter_alert.dart";
+
+
 
 class Login extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
 
   //entire field saved into variable
-  var EmailField = TextFieldWidget(hintText: "Email", obscureText: false, prefixIconData: Icons.mail_outline,);
+  var mNumberField = TextFieldWidget(hintText: "M-Number", obscureText: false, prefixIconData: Icons.arrow_right,);
   var PasswordField = TextFieldWidget(hintText: "Password", obscureText: true, prefixIconData: Icons.lock_outline,);
 
   @override
@@ -39,7 +43,7 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 40.0),
             //using the variable for the field
-            EmailField,
+            mNumberField,
             //add space between text boxes
             //*************************Third Element *********************
             SizedBox(height: 10.0),
@@ -50,12 +54,35 @@ class Login extends StatelessWidget {
             SizedBox(height: 60.0),
             RaisedButton(
               textColor: Global().textColor2,
-              onPressed: () {
-                print("you clicked login");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home_Page()),
-                );
+              onPressed: () async {
+                //get the text from the email field
+                String mNumber = mNumberField.getText().text;
+                //get the text from the Password Field
+                String password = PasswordField.getText().text;
+                //call the method to make the post request and store response
+                var fullResponse = await Send_login(mNumber, password);
+                var statusCode = fullResponse.substring(0,3);
+                //if login successful go to home page
+                if (statusCode == "200")
+                {
+
+                  //save the token
+                  var jwt = fullResponse.substring(3,);
+                  if(jwt != null) {
+                    Global().username.write(key: "username", value: mNumberField.getText().text);
+                    Global().storage.write(key: "jwt", value: jwt);
+
+                    print(await Global().storage.read(key: "jwt"));
+                    print(await Global().username.read(key: "username"));
+                  }
+                  //displayDialogAlert(context, AlertType.success, "Success", "Login Successful");
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home_Page()));
+                }
+                //if login not successful display message
+                else
+                  {
+                    displayDialogAlert(context, AlertType.error, "Error", fullResponse.substring(3,));
+                  }
               },
               child: Text("Login"),
               color: Global().buttonColor,
@@ -67,13 +94,6 @@ class Login extends StatelessWidget {
               textColor: Global().textColor2,
               onPressed: () async
               {
-                //get the text from the email field
-                String email = EmailField.getText().text;
-                //get the text from the Password Field
-                String name = PasswordField.getText().text;
-                //call the method to make the post request
-                //final String user = await send_Signup (email,name);
-                //print(user);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Signup()),
@@ -87,30 +107,48 @@ class Login extends StatelessWidget {
       ),
     );
   }
+}
 
-  // function to perform post request
-  Future<String> send_Signup (String name, String jobTitle) async {
-    //url of local database
-    final String apiUrl = "http://10.0.2.2:8000/api/Checkin/";
-    //request body
 
-    Map data = {
-      "mustangsID": "M20285574",
-      "buildingID": "Bolin567",
-      "checkIn": "false",
-      "scanTime": "IDK"
-    };
-    String body = json.encode(data);
-    final response = await http.post(apiUrl, headers: {"Content-Type": "application/json"},
-      body: body,);
-    if(response.statusCode == 200)
-    {
-      return response.body ;
-    }
-    else
-    {
-      print (response.statusCode);
-      return response.body;
-    }
-  }
+// function to perform post request
+// ****************************************************************************
+Future<String> Send_login(String mNumber, String password) async {
+  //url of local database
+  final String apiUrl = "http://10.0.2.2:8000/users/login/";
+  //request body
+  Map data = {
+    "username": mNumber,
+    "password": password,
+  };
+  String body = json.encode(data);
+  final response = await http.post(
+    apiUrl, headers: {"Content-Type": "application/json"}, body: body,);
+  print(response.body);
+  print(response.statusCode.toString());
+  //first 3 char is the response code
+  String fullResponse = response.statusCode.toString() + response.body;
+  return fullResponse;
+}
+
+
+// alert dialog box function
+//****************************************************************************
+void displayDialogAlert(BuildContext context, AlertType type, title, String text)
+{
+  Alert(
+    context: context,
+    type: type,
+    title: title,
+    desc: text,
+    buttons: [
+      DialogButton(
+        child: Text(
+          "ok",
+          style: TextStyle(color: Global().textColor2, fontSize: 20),
+        ),
+        onPressed:()async => await Navigator.pop(context),
+        color: Global().buttonColor,
+      )
+    ],
+  ).show();
 }
