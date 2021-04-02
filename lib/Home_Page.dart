@@ -6,6 +6,7 @@ import 'package:qr_scanner/Status2.dart';
 import 'package:qr_scanner/User_History.dart';
 import 'package:qr_scanner/Workout_Tutorials.dart';
 import 'package:qr_scanner/Workout_Tutorials2.dart';
+import'status_Date.dart';
 
 class Home_Page extends StatelessWidget {
   @override
@@ -66,7 +67,7 @@ class Home_Page extends StatelessWidget {
                     print("you clicked Status");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SimpleBarChart.withSampleData()),
+                      MaterialPageRoute(builder: (context) => Status_Date()),
                     );
                   },
                   child: Text("Status"),
