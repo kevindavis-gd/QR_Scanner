@@ -6,11 +6,14 @@ import "package:qr_scanner/Global.dart";
 import "package:http/http.dart" as http;
 import "dart:async";
 import "dart:convert";
+import 'dart:convert' show json, base64, ascii;
+import "package:rflutter_alert/rflutter_alert.dart";
 
 class Login extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
 
-  var EmailField = TextFieldWidget(hintText: "Email", obscureText: false, prefixIconData: Icons.mail_outline,);
+  //entire field saved into variable
+  var mNumberField = TextFieldWidget(hintText: "M-Number", obscureText: false, prefixIconData: Icons.arrow_right,);
   var PasswordField = TextFieldWidget(hintText: "Password", obscureText: true, prefixIconData: Icons.lock_outline,);
 
   @override
@@ -37,7 +40,7 @@ class Login extends StatelessWidget {
             //*************************second Element *********************
             //add space between text boxes
             SizedBox(height: 40.0),
-            EmailField,
+            mNumberField,
             //add space between text boxes
             //*************************Third Element *********************
             SizedBox(height: 10.0),
@@ -47,14 +50,6 @@ class Login extends StatelessWidget {
             SizedBox(height: 60.0),
             RaisedButton(
               textColor: Global().textColor2,
-<<<<<<< Updated upstream
-              onPressed: () {
-                print("you clicked login");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home_Page()),
-                );
-=======
               onPressed: () async {
                 //get the text from the email field
                 String mNumber = mNumberField.getText().text;
@@ -86,7 +81,6 @@ class Login extends StatelessWidget {
                   {
                     displayDialogAlert(context, AlertType.error, "Error", fullResponse.substring(3,));
                   }
->>>>>>> Stashed changes
               },
               child: Text("Login"),
               color: Global().buttonColor,
@@ -98,8 +92,8 @@ class Login extends StatelessWidget {
               textColor: Global().textColor2,
               onPressed: () async
               {
-                String email = EmailField.getText().text;
-                String name = PasswordField.getText().text;
+                //String email = mNumberField.getText().text;
+                //String name = PasswordField.getText().text;
                 //final String user = await Send_Signup (email,name);
                 //print(user);
                 Navigator.push(
@@ -116,28 +110,45 @@ class Login extends StatelessWidget {
     );
   }
 
-  // function to perform post request
-  Future<String> Send_Signup (String name, String jobTitle) async {
+// function to perform post request
+// ****************************************************************************
+  Future<String> Send_login(String mNumber, String password) async {
     //url of local database
-    final String apiUrl = "http://10.0.2.2:8000/api/Checkin/";
+    final String apiUrl = "http://10.0.2.2:8000/users/login/";
     //request body
     Map data = {
-      "mustangsID": "M20285574",
-      "buildingID": "Bolin567",
-      "checkIn": "false",
-      "scanTime": "IDK"
+      "username": mNumber,
+      "password": password,
     };
     String body = json.encode(data);
-    final response = await http.post(apiUrl, headers: {"Content-Type": "application/json"},
-      body: body,);
-    if(response.statusCode == 200)
-    {
-      return response.body ;
-    }
-    else
-    {
-      print (response.statusCode);
-      return response.body;
-    }
+    final response = await http.post(
+      apiUrl, headers: {"Content-Type": "application/json"}, body: body,);
+    print(response.body);
+    print(response.statusCode.toString());
+    //first 3 char is the response code
+    String fullResponse = response.statusCode.toString() + response.body;
+    return fullResponse;
   }
-}
+
+
+// alert dialog box function
+//****************************************************************************
+  void displayDialogAlert(BuildContext context, AlertType type, title, String text)
+  {
+    Alert(
+      context: context,
+      type: type,
+      title: title,
+      desc: text,
+      buttons: [
+        DialogButton(
+          child: Text(
+            "ok",
+            style: TextStyle(color: Global().textColor2, fontSize: 20),
+          ),
+          onPressed:()async => await Navigator.pop(context),
+          color: Global().buttonColor,
+        )
+      ],
+    ).show();
+  }}

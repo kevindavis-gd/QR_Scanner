@@ -18,6 +18,7 @@ class User_HistoryState extends State<User_History> {
     Send_HistoryRequest().then((result) {
       setState(() {
         _result = result;
+        print(_result);
       });
     });
   }
@@ -29,13 +30,6 @@ class User_HistoryState extends State<User_History> {
       return new Container();
     } else {
       List data = jsonDecode(fullResponse.substring(3,));
-      data.forEach((element) {
-        Map obj = element;
-        String mustangsID = obj['mustangsID'];
-        String buildingID = obj['buildingID'];
-        String scanTime = obj['scanTime'];
-        String scanDate = obj['scanDate'];
-      });
 
       return Scaffold(
         appBar: AppBar(
@@ -60,11 +54,11 @@ class User_HistoryState extends State<User_History> {
                             color: Global().textColor2,
                             fontWeight: FontWeight.bold)),
                     subtitle: Text(
-                      data[index]['buildingID'],
+                      data[index]['room'].toString(),
                       style: TextStyle(color: Global().textColor2),
                     ),
                     trailing: Text(
-                      data[index]['scanDate'] + "\n" + data[index]['scanTime'].toString().substring(0, 5),
+                      data[index]['scanDate'] + "\n" + data[index]['checkInTime'].toString(),
                       style: TextStyle(color: Global().textColor2),
                     ),
                   ));

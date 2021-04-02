@@ -1,87 +1,78 @@
+import 'dart:io';
+
 import "package:flutter/material.dart";
 import 'Login_text_field_widget.dart';
 import 'package:qr_scanner/Login.dart';
 import 'package:qr_scanner/Global.dart';
+import "package:http/http.dart" as http;
+import "dart:async";
+import "dart:convert";
+import "package:rflutter_alert/rflutter_alert.dart";
+import "Global.dart";
 
 class Signup extends StatelessWidget {
+
+  //entire field saved into variable
+  var firstNameField = TextFieldWidget(hintText: "First Name", obscureText: false, prefixIconData: Icons.arrow_right,);
+  var lastNameField = TextFieldWidget(hintText: "Last Name", obscureText: false, prefixIconData: Icons.arrow_right,);
+  var mNumberField = TextFieldWidget(hintText: "Mustang Number", obscureText: false, prefixIconData: Icons.arrow_right,);
+  var emailField = TextFieldWidget(hintText: "Email", obscureText: false, prefixIconData: Icons.mail_outline,);
+  var passwordField1 = TextFieldWidget(hintText: "Password", obscureText: true, prefixIconData: Icons.lock_outline,);
+  var passwordField2 = TextFieldWidget(hintText: "Retype Password", obscureText: true, prefixIconData: Icons.lock_outline,);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //do not resize the elements when keyboard is open
       resizeToAvoidBottomPadding: false,
       backgroundColor: Global().backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
+          //beginning of column
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            //************************* first Element *********************
-            //add space between text boxes
-            SizedBox(height: 10.0),
-            Image(
-              image: AssetImage(Global().logo),
-              width: 100,
-              height: 100,
-            ),
-            //************************** Second Element ************************
-            Container(
-                child: Text(
-              "SignUp",
-              style: TextStyle(height: 1, fontSize: 50, color: Global().textColor1),
-            )),
-
-            //*********************** Third Element ***********************
+            //no room for photo
+            //Image(image: AssetImage(Global().logo), width: 100, height: 100,),
+            //************************** Element 1************************
             SizedBox(height: 30.0),
-            TextFieldWidget(
-              hintText: "First Name",
-              obscureText: false,
-              prefixIconData: Icons.arrow_right,
+            Container(
+              child: Text(
+                "SignUp",
+                style: TextStyle(height: 1, fontSize: 50, color: Global().textColor1),
+              ),
             ),
 
-            //********************* Fourth Element *************************
+            //***********************Element 2***********************
+            SizedBox(height: 30.0),
+            firstNameField,
+
+            //*********************Element 3*************************
             SizedBox(height: 10.0),
-            TextFieldWidget(
-              hintText: "Last Name",
-              obscureText: false,
-              prefixIconData: Icons.arrow_right,
-            ),
+            lastNameField,
 
-            //********************** Fifth Element ************************
+            //**********************Element 4************************
             SizedBox(height: 10.0),
-            TextFieldWidget(
-              hintText: "Email",
-              obscureText: false,
-              prefixIconData: Icons.arrow_right,
-            ),
+            mNumberField,
 
-            //********************* Sixth Element *************************
+
+            //*********************Element 5*************************
             SizedBox(height: 10.0),
-            TextFieldWidget(
-              hintText: "Phone Number",
-              obscureText: false,
-              prefixIconData: Icons.arrow_right,
-            ),
+            emailField,
 
-            //**********************Seventh Element************************
+            //**********************Element 6************************
             SizedBox(height: 10.0),
-            TextFieldWidget(
-              hintText: "Password",
-              obscureText: true,
-              prefixIconData: Icons.arrow_right,
-            ),
+            passwordField1,
 
-            //*************************Eight Element *********************
+            //*************************Element 7 *********************
+            SizedBox(height: 10.0),
+            passwordField2,
+
+            //************************* Element 8 *********************
             //add space between text boxes
             SizedBox(height: 30.0),
             RaisedButton(
               textColor: Global().textColor2,
-<<<<<<< Updated upstream
-              onPressed: () {
-                print("you clicked login");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
-=======
               //mark function as async
               onPressed: () async{
                 //get the text from the field
@@ -103,20 +94,18 @@ class Signup extends StatelessWidget {
                 var responseBody = fullResponse.substring(3,);
 
                 if (statusCode == "201")
-                  {
-                    displayDialogAlert(context, AlertType.success, "Success", "New User Created");
+                {
+                  displayDialogAlert(context, AlertType.success, "Success", "New User Created");
 
                   //save the token
                   var jwt = fullResponse.substring(3,);
                   if(jwt != null) {
                     Global().storage.write(key: "jwt", value: jwt);
-                    Global().StrToken = jwt;
-                    }
                   }
+                }
                 else{
                   displayDialogAlert(context, AlertType.error, "Error", responseBody);
                 }
->>>>>>> Stashed changes
               },
               child: Text("Signup"),
               color: Global().buttonColor,
@@ -127,8 +116,6 @@ class Signup extends StatelessWidget {
     );
   }
 }
-<<<<<<< Updated upstream
-=======
 
 
 // function to perform post request
@@ -177,4 +164,3 @@ void displayDialogAlert(BuildContext context, AlertType type, title,
   ).show();
 }
 
->>>>>>> Stashed changes

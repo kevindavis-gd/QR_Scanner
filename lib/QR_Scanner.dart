@@ -4,11 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:qr_scanner/Global.dart';
 import "package:http/http.dart" as http;
-<<<<<<< Updated upstream
 
-=======
 import 'dart:convert' show json, base64, ascii;
->>>>>>> Stashed changes
+
 class QR_Scanner extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -36,6 +34,13 @@ class _MyAppState extends State<QR_Scanner> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
+
+    //if _scanBarcode is -1 that means it was unsuccessful
+    // so do not send information to the database
+    if(_scanBarcode != "-1")
+    {
+      SendQR(_scanBarcode);
+    }
   }
 
 
@@ -67,12 +72,10 @@ class _MyAppState extends State<QR_Scanner> {
                 height: 50.0,
                 child: RaisedButton(
                   textColor: Global().textColor2,
-<<<<<<< Updated upstream
-                  onPressed: () {
-=======
+
                   onPressed: () async {
                     //print(await Global().storage.read(key: "jwt"));
->>>>>>> Stashed changes
+
                     scanQR();
                     print("start");
                     SendQR(_scanBarcode);
@@ -95,28 +98,16 @@ class _MyAppState extends State<QR_Scanner> {
 }
 
 
-<<<<<<< Updated upstream
-Future<String> SendQR (String QR) async {
-  final String apiUrl = "http://10.0.2.2:8000/api/Checkin/";
-
-  final response = await http.post(apiUrl, body:{
-    "mustangsID": "M20285574",
-    "buildingID": "Bolin567",
-    "checkIn": "false",
-    "scanTime": "IDK"
-=======
 Future<void> SendQR (String QR) async {
-  final String apiUrl = "http://10.0.2.2:8000/api/checkin/";
+  final String apiUrl = "http://127.0.0.1:8000/api/checkin/scan/";
   String gettoken =await Global().username.read(key: "jwt");
   String token = gettoken.substring(10,50);
   final response = await http.post(
       apiUrl,
-      headers: {"Authorization" : "Token " + token},
+      headers: {"Authorization" : "Token 9d1caef065038bd1ed78f7a162c32a45e6e3c24c"},
       body:{
-    "mustangsID": await Global().username.read(key: "username"),
-    "buildingID": '1',
-        "checkIn" : '1',
->>>>>>> Stashed changes
+    "mustangsID": Global().StrUsername,
+    "roomID": '1',
   });
 
   if(response.statusCode == 201)
