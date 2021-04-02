@@ -47,12 +47,46 @@ class Login extends StatelessWidget {
             SizedBox(height: 60.0),
             RaisedButton(
               textColor: Global().textColor2,
+<<<<<<< Updated upstream
               onPressed: () {
                 print("you clicked login");
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home_Page()),
                 );
+=======
+              onPressed: () async {
+                //get the text from the email field
+                String mNumber = mNumberField.getText().text;
+                //get the text from the Password Field
+                String password = PasswordField.getText().text;
+                //call the method to make the post request and store response
+                var fullResponse = await Send_login(mNumber, password);
+                var statusCode = fullResponse.substring(0,3);
+                //if login successful go to home page
+                if (statusCode == "200")
+                {
+
+                  //save the token
+                  var jwt = fullResponse.substring(3,);
+                  if(jwt != null) {
+                    Global().username.write(key: "username", value: mNumberField.getText().text);
+                    Global().StrUsername = mNumberField.getText().text;
+                    Global().storage.write(key: "jwt", value: jwt);
+                    Global().StrToken = jwt.toString();
+
+                   //print(Global().StrToken);
+                   // print(await Global().username.read(key: "username"));
+                  }
+                  //displayDialogAlert(context, AlertType.success, "Success", "Login Successful");
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home_Page()));
+                }
+                //if login not successful display message
+                else
+                  {
+                    displayDialogAlert(context, AlertType.error, "Error", fullResponse.substring(3,));
+                  }
+>>>>>>> Stashed changes
               },
               child: Text("Login"),
               color: Global().buttonColor,

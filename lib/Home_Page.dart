@@ -3,6 +3,9 @@ import 'QR_Scanner.dart';
 import 'package:qr_scanner/Signup.dart';
 import 'package:qr_scanner/Global.dart';
 import 'package:qr_scanner/Status2.dart';
+import 'package:qr_scanner/User_History.dart';
+import 'package:qr_scanner/Workout_Tutorials.dart';
+import 'package:qr_scanner/Workout_Tutorials2.dart';
 
 class Home_Page extends StatelessWidget {
   @override
@@ -81,10 +84,28 @@ class Home_Page extends StatelessWidget {
                     print("you clicked History");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Signup()),
+                      MaterialPageRoute(builder: (context) => User_History()),
                     );
                   },
                   child: Text("History"),
+                  color: Global().buttonColor,
+                ),
+              ),
+              //*************************Fifth Element *********************
+              SizedBox(height: 30.0),
+              SizedBox(
+                width: 100.0,
+                height: 50.0,
+                child: RaisedButton(
+                  textColor: Global().textColor2,
+                  onPressed: () {
+                    print("you clicked Workout Tutorials");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Workout_Tutorials2()),
+                    );
+                  },
+                  child: Text("Workouts"),
                   color: Global().buttonColor,
                 ),
               ),

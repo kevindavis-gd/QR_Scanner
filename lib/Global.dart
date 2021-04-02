@@ -7,4 +7,11 @@ class Global {
    Color textColor2 = Colors.white;
    String profilePicture = "assets/Semeion.jpg";
    String logo = "assets/Semeion.jpg";
+<<<<<<< Updated upstream
+=======
+   final storage = FlutterSecureStorage();
+   final username = FlutterSecureStorage();
+   String StrToken;
+   String StrUsername;
+>>>>>>> Stashed changes
 }

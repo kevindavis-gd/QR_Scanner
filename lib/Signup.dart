@@ -74,12 +74,49 @@ class Signup extends StatelessWidget {
             SizedBox(height: 30.0),
             RaisedButton(
               textColor: Global().textColor2,
+<<<<<<< Updated upstream
               onPressed: () {
                 print("you clicked login");
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Login()),
                 );
+=======
+              //mark function as async
+              onPressed: () async{
+                //get the text from the field
+                String firstName = firstNameField.getText().text;
+                //get the text from the field
+                String lastName = lastNameField.getText().text;
+                //get the text from the field
+                String mNumber = mNumberField.getText().text;
+                //get the text from the field
+                String email = emailField.getText().text;
+                //get the text from the field
+                String password1 = passwordField1.getText().text;
+                //get the text from the Field
+                String password2 = passwordField2.getText().text;
+
+                //call the method to make the post request
+                final String fullResponse = await Send_RegisterUser (firstName, lastName, mNumber, email, password1, password2);
+                var statusCode = fullResponse.substring(0,3);
+                var responseBody = fullResponse.substring(3,);
+
+                if (statusCode == "201")
+                  {
+                    displayDialogAlert(context, AlertType.success, "Success", "New User Created");
+
+                  //save the token
+                  var jwt = fullResponse.substring(3,);
+                  if(jwt != null) {
+                    Global().storage.write(key: "jwt", value: jwt);
+                    Global().StrToken = jwt;
+                    }
+                  }
+                else{
+                  displayDialogAlert(context, AlertType.error, "Error", responseBody);
+                }
+>>>>>>> Stashed changes
               },
               child: Text("Signup"),
               color: Global().buttonColor,
@@ -90,3 +127,54 @@ class Signup extends StatelessWidget {
     );
   }
 }
+<<<<<<< Updated upstream
+=======
+
+
+// function to perform post request
+//****************************************************************************
+Future<String> Send_RegisterUser (String firstName, String lastName, String mNumber, String email, String password1, String password2) async {
+  //url of local database
+  final String apiUrl = "http://10.0.2.2:8000/users/createuser/";
+  //request body
+  Map data = {
+    "first_name": firstName,
+    "last_name": lastName,
+    "username": mNumber,
+    "email": email,
+    "password1": password1,
+    "password2": password2
+  };
+  String body = json.encode(data);
+  final response = await http.post(
+    apiUrl, headers: {"Content-Type": "application/json"}, body: body,);
+  print(response.body);
+  print(response.statusCode.toString());
+  //first 3 char is the response code
+  String fullResponse = response.statusCode.toString() + response.body;
+  return fullResponse;
+}
+
+// alert dialog box function
+//****************************************************************************
+void displayDialogAlert(BuildContext context, AlertType type, title,
+    String text) {
+  Alert(
+    context: context,
+    type: type,
+    title: title,
+    desc: text,
+    buttons: [
+      DialogButton(
+        child: Text(
+          "ok",
+          style: TextStyle(color: Global().textColor2, fontSize: 20),
+        ),
+        onPressed: () async => await Navigator.pop(context),
+        color: Global().buttonColor,
+      )
+    ],
+  ).show();
+}
+
+>>>>>>> Stashed changes

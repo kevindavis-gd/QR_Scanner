@@ -13,7 +13,10 @@ dependencies:
   charts_flutter:
   http: ^0.12.2
   font_awesome_flutter:
-
+  videos_player: ^0.1.3
+  youtube_player_flutter:
+  youtube_player_iframe:
+  video_player:
 dev_dependencies:
   flutter_test:
     sdk: flutter
