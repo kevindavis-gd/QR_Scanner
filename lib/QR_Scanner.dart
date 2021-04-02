@@ -33,17 +33,16 @@ class _MyAppState extends State<QR_Scanner> {
     if (!mounted) return;
     setState(() {
       _scanBarcode = barcodeScanRes;
+
+      //if _scanBarcode is -1 that means it was unsuccessful
+      // so do not send information to the database
+      if(_scanBarcode != "-1")
+      {
+        SendQR(_scanBarcode);
+      }
     });
 
-    //if _scanBarcode is -1 that means it was unsuccessful
-    // so do not send information to the database
-    if(_scanBarcode != "-1")
-    {
-      SendQR(_scanBarcode);
-    }
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,12 +73,7 @@ class _MyAppState extends State<QR_Scanner> {
                   textColor: Global().textColor2,
 
                   onPressed: () async {
-                    //print(await Global().storage.read(key: "jwt"));
-
                     scanQR();
-                    print("start");
-                    SendQR(_scanBarcode);
-                    print("finish");
                     },
                   child: Text("Start QR scan"),
                   color: Global().buttonColor,
@@ -97,30 +91,25 @@ class _MyAppState extends State<QR_Scanner> {
   }
 }
 
-
+// function to perform post request
+// ****************************************************************************
 Future<void> SendQR (String QR) async {
-  final String apiUrl = "http://127.0.0.1:8000/api/checkin/scan/";
+  //url of local database
   String gettoken =await Global().username.read(key: "jwt");
   String token = gettoken.substring(10,50);
+
+  final String apiUrl = "http://10.0.2.2:8000/api/checkin/scan/";
   final response = await http.post(
       apiUrl,
-      headers: {"Authorization" : "Token 9d1caef065038bd1ed78f7a162c32a45e6e3c24c"},
+      headers: {"Authorization": "Token " + token},
       body:{
-    "mustangsID": Global().StrUsername,
-    "roomID": '1',
-  });
-
-  if(response.statusCode == 201)
-  {
-    print("pass");
-    return response.body ;
-
-  }
-  else
-  {
-    print("fail");
-    print (response.statusCode);
-    return "error";
-  }
-
+        "mustangsID": "root",
+        "room": "1"}
+  );
+  //print(response.body);
+  print(response.statusCode);
+  //first 3 char is the response code
+  //fullResponse = response.statusCode.toString() + response.body;
+  //List data = jsonDecode(response.body);
+  //return fullResponse;
 }
