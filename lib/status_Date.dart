@@ -107,11 +107,84 @@ class Status_DateState extends State<Status_Date> {
                         textColor: Global().textColor2,
                         onPressed: () {
                           print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Status_Hour()),
-                          );
+                          Send_HourStatusRequest(context, "00");
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          Send_HourStatusRequest(context, "01");
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+                          Send_HourStatusRequest(context, "02");
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+                          Send_HourStatusRequest(context, "03");
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+                          Send_HourStatusRequest(context, "04");
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+                          Send_HourStatusRequest(context, "05");
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+                          Send_HourStatusRequest(context, "06");
                         },
                         child: Text("M"),
                         color: Global().buttonColor,
@@ -125,10 +198,7 @@ class Status_DateState extends State<Status_Date> {
                         onPressed: () {
                           print("you clicked QR code");
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((1))),
-                          );
+                          Send_HourStatusRequest(context, "07");
                         },
                         child: Text("M"),
                         color: Global().buttonColor,
@@ -142,10 +212,7 @@ class Status_DateState extends State<Status_Date> {
                         onPressed: () {
                           print("you clicked QR code");
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((2))),
-                          );
+                          Send_HourStatusRequest(context, "08");
                         },
                         child: Text("M"),
                         color: Global().buttonColor,
@@ -159,10 +226,7 @@ class Status_DateState extends State<Status_Date> {
                         onPressed: () {
                           print("you clicked QR code");
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((3))),
-                          );
+                          Send_HourStatusRequest(context, "09");
                         },
                         child: Text("M"),
                         color: Global().buttonColor,
@@ -176,10 +240,20 @@ class Status_DateState extends State<Status_Date> {
                         onPressed: () {
                           print("you clicked QR code");
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((4))),
-                          );
+                          Send_HourStatusRequest(context, "10");
+                        },
+                        child: Text("M"),
+                        color: Global().buttonColor,
+                      ),
+                    ),
+                    SizedBox(width:buttonSpacing,),
+                    SizedBox(
+                      width:buttonSize,
+                      child: RaisedButton(
+                        textColor: Global().textColor2,
+                        onPressed: () {
+                          print("you clicked QR code");
+                          Send_HourStatusRequest(context, "11");
                         },
                         child: Text("M"),
                         color: Global().buttonColor,
@@ -193,10 +267,7 @@ class Status_DateState extends State<Status_Date> {
                         onPressed: () {
                           print("you clicked QR code");
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((5))),
-                          );
+                          Send_HourStatusRequest(context, "12");
                         },
                         child: Text("M"),
                         color: Global().buttonColor,
@@ -210,129 +281,7 @@ class Status_DateState extends State<Status_Date> {
                         onPressed: () {
                           print("you clicked QR code");
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((6))),
-                          );
-                        },
-                        child: Text("M"),
-                        color: Global().buttonColor,
-                      ),
-                    ),
-                    SizedBox(width:buttonSpacing,),
-                    SizedBox(
-                      width:buttonSize,
-                      child: RaisedButton(
-                        textColor: Global().textColor2,
-                        onPressed: () {
-                          print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((7))),
-                          );
-                        },
-                        child: Text("M"),
-                        color: Global().buttonColor,
-                      ),
-                    ),
-                    SizedBox(width:buttonSpacing,),
-                    SizedBox(
-                      width:buttonSize,
-                      child: RaisedButton(
-                        textColor: Global().textColor2,
-                        onPressed: () {
-                          print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((8))),
-                          );
-                        },
-                        child: Text("M"),
-                        color: Global().buttonColor,
-                      ),
-                    ),
-                    SizedBox(width:buttonSpacing,),
-                    SizedBox(
-                      width:buttonSize,
-                      child: RaisedButton(
-                        textColor: Global().textColor2,
-                        onPressed: () {
-                          print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((9))),
-                          );
-                        },
-                        child: Text("M"),
-                        color: Global().buttonColor,
-                      ),
-                    ),
-                    SizedBox(width:buttonSpacing,),
-                    SizedBox(
-                      width:buttonSize,
-                      child: RaisedButton(
-                        textColor: Global().textColor2,
-                        onPressed: () {
-                          print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((10))),
-                          );
-                        },
-                        child: Text("M"),
-                        color: Global().buttonColor,
-                      ),
-                    ),
-                    SizedBox(width:buttonSpacing,),
-                    SizedBox(
-                      width:buttonSize,
-                      child: RaisedButton(
-                        textColor: Global().textColor2,
-                        onPressed: () {
-                          print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((11))),
-                          );
-                        },
-                        child: Text("M"),
-                        color: Global().buttonColor,
-                      ),
-                    ),
-                    SizedBox(width:buttonSpacing,),
-                    SizedBox(
-                      width:buttonSize,
-                      child: RaisedButton(
-                        textColor: Global().textColor2,
-                        onPressed: () {
-                          print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((12))),
-                          );
-                        },
-                        child: Text("M"),
-                        color: Global().buttonColor,
-                      ),
-                    ),
-                    SizedBox(width:buttonSpacing,),
-                    SizedBox(
-                      width:buttonSize,
-                      child: RaisedButton(
-                        textColor: Global().textColor2,
-                        onPressed: () {
-                          print("you clicked QR code");
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((13))),
-                          );
+                          Send_HourStatusRequest(context, "13");
                         },
                         child: Text("M"),
                         color: Global().buttonColor,
@@ -417,4 +366,30 @@ class GymActivity {
   String getDate() {
     return date;
   }
+}
+
+
+
+// function to perform post request
+// ****************************************************************************
+void Send_HourStatusRequest(BuildContext context, String previousDay) async {
+  //url of local database
+  String gettoken =await Global().username.read(key: "jwt");
+  String token = gettoken.substring(10,50);
+  final String apiUrl = "http://10.0.2.2:8000/api/checkin/getHourStatus";
+  final response = await http.get(
+    apiUrl,
+    headers: {
+      "Authorization": "Token " + token
+    },
+  );
+  fullResponse = response.statusCode.toString() + response.body;
+  fullResponse = previousDay.toString() + response.body;
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) =>
+            Status_Hour(fullResponse)),
+  );
 }
