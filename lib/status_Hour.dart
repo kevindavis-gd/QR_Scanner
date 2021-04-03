@@ -10,9 +10,7 @@ class statusHour extends StatelessWidget {
    List<charts.Series> seriesList;
    bool animate;
    int previousDay;
-
   //statusHour(this.seriesList, this.animate, this.previousDay);
-
   statusHour.withSampleData(int pDay )
   {
     previousDay = pDay;

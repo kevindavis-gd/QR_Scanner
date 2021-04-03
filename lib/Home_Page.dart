@@ -7,6 +7,7 @@ import 'package:qr_scanner/User_History.dart';
 import 'package:qr_scanner/Workout_Tutorials.dart';
 import 'package:qr_scanner/Workout_Tutorials2.dart';
 import'status_Date.dart';
+import "package:http/http.dart" as http;
 
 class Home_Page extends StatelessWidget {
   @override
@@ -65,10 +66,7 @@ class Home_Page extends StatelessWidget {
                   textColor: Global().textColor2,
                   onPressed: () {
                     print("you clicked Status");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Status_Date()),
-                    );
+                    Send_DateStatusRequest(context);
                   },
                   child: Text("Status"),
                   color: Global().buttonColor,
@@ -118,3 +116,26 @@ class Home_Page extends StatelessWidget {
   }
 }
 
+
+// function to perform post Date Status request
+// ****************************************************************************
+void Send_DateStatusRequest(BuildContext context) async {
+  //url of local database
+  String gettoken =await Global().username.read(key: "jwt");
+  String token = gettoken.substring(10,50);
+  final String apiUrl = "http://10.0.2.2:8000/api/checkin/getDateStatus";
+  final response = await http.get(
+    apiUrl,
+    headers: {
+      "Authorization": "Token " + token
+    },
+  );
+  String fullResponse = response.statusCode.toString() + response.body;
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) =>
+            Status_Date(fullResponse)),
+  );
+}

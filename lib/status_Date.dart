@@ -9,40 +9,39 @@ import "package:http/http.dart" as http;
 import 'dart:convert' show json, base64, ascii;
 import 'dart:convert';
 import 'package:qr_scanner/Global.dart';
+import 'package:qr_scanner/status_Hour2.dart';
+import 'dart:io';
 
-String fullResponse;
-//List dateData = [];
+String fullResponse = '200[0,0,0,0,0,0,0,0,0,0,0,0,0,0]';
+
 
 class Status_Date extends StatefulWidget {
+  String myData;
+  Status_Date(this.myData, {Key key}) : super(key: key);
+
   @override
-  State createState() => new Status_DateState.withSampleData();
+  State createState() => new Status_DateState.withSampleData(myData);
 }
 //************************************************************************************
-
 class Status_DateState extends State<Status_Date> {
   var _result;
-  final List<charts.Series> seriesList;
-  final bool animate;
-  Status_DateState(this.seriesList, {this.animate});
+  List<charts.Series> seriesList;
+  bool animate;
+  Status_DateState (this.seriesList, {this.animate});
+
   /// Creates a [BarChart] with sample data and no transition.
-  factory Status_DateState.withSampleData() {
-    //print("step2");
+  factory Status_DateState.withSampleData(String response) {
     return new Status_DateState(
-      _createSampleData(),
+      _createSampleData(response),
       animate: true,
     );
-
   }
-
   //***********************************************************************************
   @override
   void initState() {
-    Send_DateStatusRequest().then((result) {
       setState(() {
-        _result = result;
-        //print(_result);
+        _result = widget.myData;
       });
-    });
   }
 //****************************************************************************************
   @override
@@ -50,12 +49,7 @@ class Status_DateState extends State<Status_Date> {
     if (_result == null) {
       // This is what we show while we're loading
       return new Container();
-    } else {
-      List dateData = jsonDecode(fullResponse.substring(3,));
     }
-
-
-
     int previousDay = 0;
     double buttonSize = 16;
     double buttonSpacing =10;
@@ -93,11 +87,6 @@ class Status_DateState extends State<Status_Date> {
                       previousDay = model.selectedDatum.first.index;
                       print(previousDay);
                     },
-                    /*
-                    updatedListener: (model) {
-                      print('updatedListener in $model');
-                    },
-                    */
                   ),
                 ],
               ),
@@ -121,7 +110,7 @@ class Status_DateState extends State<Status_Date> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => statusHour.withSampleData((0))),
+                            MaterialPageRoute(builder: (context) => Status_Hour()),
                           );
                         },
                         child: Text("M"),
@@ -359,14 +348,11 @@ class Status_DateState extends State<Status_Date> {
     );
   }
 //**************************************************************************************
-
-
   /// Create one series with sample hard coded data.
   /// // ****************************************************************************
-  static List<charts.Series<GymActivity, String>> _createSampleData() {
+  static List<charts.Series<GymActivity, String>> _createSampleData(String response)  {
     var today = new DateTime.now();
-    Send_DateStatusRequest();
-    List dateData = jsonDecode(fullResponse.substring(3,));
+    List dateData = jsonDecode(response.substring(3,));
     final data = [
       new GymActivity(
           DateFormat('dd').format(today.subtract(Duration(days: 0))),
@@ -431,20 +417,4 @@ class GymActivity {
   String getDate() {
     return date;
   }
-}
-// function to perform post request
-// ****************************************************************************
-Future<String> Send_DateStatusRequest() async {
-  //url of local database
-  String gettoken =await Global().username.read(key: "jwt");
-  String token = gettoken.substring(10,50);
-  final String apiUrl = "http://10.0.2.2:8000/api/checkin/getDateStatus";
-  final response = await http.get(
-    apiUrl,
-    headers: {
-      "Authorization": "Token " + token
-    },
-  );
-  fullResponse = response.statusCode.toString() + response.body;
-  return fullResponse;
 }
