@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:qr_scanner/Global.dart';
 
+///////////////////////////////////////////////////////////////////
 // standardized text field widget
+///////////////////////////////////////////////////////////////////
 class TextFieldWidget extends StatelessWidget {
   final String hintText;
   final IconData prefixIconData;

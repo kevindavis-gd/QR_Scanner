@@ -12,7 +12,7 @@ import "package:rflutter_alert/rflutter_alert.dart";
 class Login extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
 
-  //entire field saved into variable
+  //entire text field widget saved into variable
   var mNumberField = TextFieldWidget(hintText: "M-Number", obscureText: false, prefixIconData: Icons.arrow_right,);
   var PasswordField = TextFieldWidget(hintText: "Password", obscureText: true, prefixIconData: Icons.lock_outline,);
 
@@ -29,7 +29,7 @@ class Login extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           //an array that stores multiple widgets
           children: <Widget>[
-            //*************************first Element *********************
+            //*************************Logo *********************
             //add space between text boxes
             SizedBox(height: 40.0),
             Image(
@@ -37,15 +37,15 @@ class Login extends StatelessWidget {
               width: 200,
               height: 200,
             ),
-            //*************************second Element *********************
+            //*************************mNumber Field *********************
             //add space between text boxes
             SizedBox(height: 40.0),
             mNumberField,
             //add space between text boxes
-            //*************************Third Element *********************
+            //*************************Password Field *********************
             SizedBox(height: 10.0),
             PasswordField,
-            //*************************fourthElement *********************
+            //************************* Login Button *********************
             //add space between text boxes
             SizedBox(height: 60.0),
             RaisedButton(
@@ -61,7 +61,6 @@ class Login extends StatelessWidget {
                 //if login successful go to home page
                 if (statusCode == "200")
                 {
-
                   //save the token
                   var jwt = fullResponse.substring(3,);
                   if(jwt != null) {
@@ -69,11 +68,7 @@ class Login extends StatelessWidget {
                     Global().StrUsername = mNumberField.getText().text;
                     Global().storage.write(key: "jwt", value: jwt);
                     Global().StrToken = jwt.toString();
-
-                   //print(Global().StrToken);
-                   // print(await Global().username.read(key: "username"));
                   }
-                  //displayDialogAlert(context, AlertType.success, "Success", "Login Successful");
                   Navigator.push(context, MaterialPageRoute(builder: (context) => Home_Page()));
                 }
                 //if login not successful display message
@@ -85,17 +80,13 @@ class Login extends StatelessWidget {
               child: Text("Login"),
               color: Global().buttonColor,
             ),
-            //*************************fifth Element *********************
+            //*************************Signup Button *********************
             //add space between text boxes
             SizedBox(height: 1.0),
             RaisedButton(
               textColor: Global().textColor2,
               onPressed: () async
               {
-                //String email = mNumberField.getText().text;
-                //String name = PasswordField.getText().text;
-                //final String user = await Send_Signup (email,name);
-                //print(user);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Signup()),
@@ -110,8 +101,9 @@ class Login extends StatelessWidget {
     );
   }
 
-// function to perform post request
-// ****************************************************************************
+ ///////////////////////////////////////////////////////////////////
+// function to send the login request
+///////////////////////////////////////////////////////////////////
   Future<String> Send_login(String mNumber, String password) async {
     //url of local database
     final String apiUrl = "http://10.0.2.2:8000/users/login/";
@@ -120,19 +112,20 @@ class Login extends StatelessWidget {
       "username": mNumber,
       "password": password,
     };
+    //encode the data into json format
     String body = json.encode(data);
     final response = await http.post(
       apiUrl, headers: {"Content-Type": "application/json"}, body: body,);
     print(response.body);
     print(response.statusCode.toString());
-    //first 3 char is the response code
+    //first 3 char is the response status code
     String fullResponse = response.statusCode.toString() + response.body;
     return fullResponse;
   }
 
-
+///////////////////////////////////////////////////////////////////
 // alert dialog box function
-//****************************************************************************
+///////////////////////////////////////////////////////////////////
   void displayDialogAlert(BuildContext context, AlertType type, title, String text)
   {
     Alert(

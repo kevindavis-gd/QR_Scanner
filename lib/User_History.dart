@@ -6,11 +6,18 @@ import 'dart:convert';
 
 String fullResponse;
 
+///////////////////////////////////////////////////////////////////
+//Stateful widget to call the new state
+///////////////////////////////////////////////////////////////////
 class User_History extends StatefulWidget {
   @override
   State createState() => new User_HistoryState();
 }
 
+
+///////////////////////////////////////////////////////////////////
+//State of the page
+///////////////////////////////////////////////////////////////////
 class User_HistoryState extends State<User_History> {
   var _result;
   @override
@@ -28,26 +35,29 @@ class User_HistoryState extends State<User_History> {
     if (_result == null) {
       // This is what we show while we're loading
       return new Container();
-    } else {
+    }
+    else
+      {
+      //once the information has loaded
       List data = jsonDecode(fullResponse.substring(3,));
-
       return Scaffold(
         appBar: AppBar(
-          title: Text("Checkin List"),
+          title: Text("User History"),
           backgroundColor: Global().buttonColor,
         ),
         //do not resize the elements when the keyboard is open
         resizeToAvoidBottomPadding: false,
         backgroundColor: Global().backgroundColor,
-
         body: Padding(
           //padding on all sides
           padding: const EdgeInsets.all(40.0),
+          //creating a list of list tiles
           child: ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
               return Card(
                   color: Global().buttonColor,
+                  //create the list tile specification
                   child: ListTile(
                     title: Text(data[index]['mustangsID'],
                         style: TextStyle(
@@ -70,13 +80,14 @@ class User_HistoryState extends State<User_History> {
   }
 }
 
-// function to perform post request
-// ****************************************************************************
+///////////////////////////////////////////////////////////////////
+//function to request the History of user
+///////////////////////////////////////////////////////////////////
 Future<String> Send_HistoryRequest() async {
-  //url of local database
+  //get the token information from the secure storage
   String gettoken =await Global().username.read(key: "jwt");
   String token = gettoken.substring(10,50);
-
+  //url of local database
   final String apiUrl = "http://10.0.2.2:8000/api/checkin/getcheckins";
   final response = await http.get(
     apiUrl,
@@ -88,6 +99,5 @@ Future<String> Send_HistoryRequest() async {
   print(response.statusCode);
   //first 3 char is the response code
   fullResponse = response.statusCode.toString() + response.body;
-  //List data = jsonDecode(response.body);
   return fullResponse;
 }

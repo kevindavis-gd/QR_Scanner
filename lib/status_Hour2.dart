@@ -2,26 +2,28 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:math';
-import "status_Hour.dart";
-import "package:flutter/material.dart";
-import "package:http/http.dart" as http;
-import 'dart:convert' show json, base64, ascii;
+import 'dart:convert' show json;
 import 'dart:convert';
 import 'package:qr_scanner/Global.dart';
 import 'package:qr_scanner/Home_Page.dart';
 
 String fullResponse;
-//List dateData = [];
 
+///////////////////////////////////////////////////////////////////
+//Stateful widget to call the new state
+///////////////////////////////////////////////////////////////////
 class Status_Hour extends StatefulWidget {
   String fullData;
+  //constructor
   Status_Hour(this.fullData, {Key key}) : super(key: key);
-
   @override
   State createState() => new Status_HourState.withSampleData(fullData);
 }
-//************************************************************************************
+
+
+///////////////////////////////////////////////////////////////////
+//State of the page
+///////////////////////////////////////////////////////////////////
 class Status_HourState extends State<Status_Hour> {
 
   var _result;
@@ -31,14 +33,9 @@ class Status_HourState extends State<Status_Hour> {
 
   /// Creates a [BarChart] with sample data and no transition.
   factory Status_HourState.withSampleData(String fullData) {
-
     int previousDays = int.parse(fullData.substring(0,2));
     String response = fullData.substring(2,);
-
-    return new Status_HourState(
-      _createSampleData(response, previousDays),
-      animate: true,
-    );
+    return new Status_HourState(_createSampleData(response, previousDays), animate: true,);
   }
   //***********************************************************************************
   @override
@@ -50,20 +47,18 @@ class Status_HourState extends State<Status_Hour> {
 //****************************************************************************************
   @override
   Widget build(BuildContext context) {
+    String today = DateFormat('EEE, M/d/y').format(DateTime.now().subtract(Duration(days:int.parse(widget.fullData.substring(0,2)))));
+
     if (_result == null) {
       // This is what we show while we're loading
       return new Container();
-    } else {
-      //List dateData = jsonDecode(fullResponse.substring(3,));
     }
-
-    String today = DateFormat('EEE, M/d/y').format(DateTime.now().subtract(Duration(days:int.parse(widget.fullData.substring(0,2)))));
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Global().buttonColor,
           title: Text("People at Hours"),
         ),
         body: Column(
@@ -84,19 +79,13 @@ class Status_HourState extends State<Status_Hour> {
                 ],
 
                 /// ********************************************************************Select individual bars
-
                 selectionModels: [
                   new charts.SelectionModelConfig(
                     type: charts.SelectionModelType.info,
                     changedListener: (model) {
                       //print('Change in ${model.selectedDatum.first.datum}');
                       print(model.selectedDatum.first.index);
-
                     },
-                    /*
-                    updatedListener: (model) {
-                      print('updatedListener in $model');
-                    },*/
                   ),
                 ],
               ),
@@ -108,7 +97,6 @@ class Status_HourState extends State<Status_Hour> {
                 textColor: Global().textColor2,
                 onPressed: () {
                   print("you clicked QR code");
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Home_Page()),
@@ -124,11 +112,13 @@ class Status_HourState extends State<Status_Hour> {
     );
   }
 
-  /// Create one series with sample hard coded data.
+  ///////////////////////////////////////////////////////////////////
+  // Create one series with received data.
+  ///////////////////////////////////////////////////////////////////
   static List<charts.Series<GymActivity, String>> _createSampleData(String response, int previousDays) {
     var lists = json.decode(response);
-    //print(lists[0][17]);
-    //print(previousDays);
+    //list of the activities from the day that was passed into the view
+    // from 5am to 10pm
     final data = [
       new GymActivity("5", lists[previousDays][5]),
       new GymActivity("6", lists[previousDays][6]),
@@ -148,46 +138,30 @@ class Status_HourState extends State<Status_Hour> {
       new GymActivity("20", lists[previousDays][20]),
       new GymActivity("21", lists[previousDays][21]),
       new GymActivity("22", lists[previousDays][22]),
-
     ];
     return [
       new charts.Series<GymActivity, String>(
         id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (GymActivity sales, _) => sales.hour,
-        measureFn: (GymActivity sales, _) => sales.people,
+        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
+        domainFn: (GymActivity people, _) => people.hour,
+        measureFn: (GymActivity people, _) => people.people,
         data: data,
       )
     ];
   }
 }
 
-/// Sample ordinal data type.
+///////////////////////////////////////////////////////////////////
+// GymActivity class/model
+///////////////////////////////////////////////////////////////////
 class GymActivity {
   String hour;
   var people;
-
   GymActivity(this.hour, this.people);
+
+  //get date function
   String getDate()
   {
     return hour;
   }
-}
-
-// function to perform post request
-// ****************************************************************************
-Future<String> Send_DateStatusRequest() async {
-  //url of local database
-  String gettoken =await Global().username.read(key: "jwt");
-  String token = gettoken.substring(10,50);
-  final String apiUrl = "http://10.0.2.2:8000/api/checkin/getHourStatus";
-  final response = await http.get(
-    apiUrl,
-    headers: {
-      "Authorization": "Token " + token
-    },
-  );
-  fullResponse = response.statusCode.toString() + response.body;
-  //print(fullResponse);
-  return fullResponse;
 }

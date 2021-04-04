@@ -2,27 +2,28 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:math';
-import "status_Hour.dart";
-import "package:flutter/material.dart";
 import "package:http/http.dart" as http;
-import 'dart:convert' show json, base64, ascii;
 import 'dart:convert';
 import 'package:qr_scanner/Global.dart';
 import 'package:qr_scanner/status_Hour2.dart';
-import 'dart:io';
 
-String fullResponse = '200[0,0,0,0,0,0,0,0,0,0,0,0,0,0]';
+String fullResponse;
 
-
+///////////////////////////////////////////////////////////////////
+//Stateful widget to call the new state
+///////////////////////////////////////////////////////////////////
 class Status_Date extends StatefulWidget {
   String myData;
+  //constructor
   Status_Date(this.myData, {Key key}) : super(key: key);
-
   @override
   State createState() => new Status_DateState.withSampleData(myData);
 }
-//************************************************************************************
+
+
+///////////////////////////////////////////////////////////////////
+//State of the page
+///////////////////////////////////////////////////////////////////
 class Status_DateState extends State<Status_Date> {
   var _result;
   List<charts.Series> seriesList;
@@ -57,7 +58,7 @@ class Status_DateState extends State<Status_Date> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Global().buttonColor,
           title: Text("People at The Gym"),
         ),
         body: Column(
@@ -77,7 +78,6 @@ class Status_DateState extends State<Status_Date> {
                     charts.OutsideJustification.middleDrawArea,
                   )
                 ],
-
                 /// ********************************************************************Select individual bars
 
                 selectionModels: [
@@ -91,9 +91,7 @@ class Status_DateState extends State<Status_Date> {
                 ],
               ),
             ),
-            //**********************************************************
             // ***************************************************************Buttons for hourly graph
-            //
             Padding(
               padding: const EdgeInsets.fromLTRB(21, 2, 2, 0),
               child: SizedBox(
@@ -106,7 +104,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "00");
                         },
                         child: Text("M"),
@@ -119,6 +117,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "01");
                         },
                         child: Text("M"),
@@ -131,7 +130,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "02");
                         },
                         child: Text("M"),
@@ -144,7 +143,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "03");
                         },
                         child: Text("M"),
@@ -157,7 +156,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "04");
                         },
                         child: Text("M"),
@@ -170,7 +169,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "05");
                         },
                         child: Text("M"),
@@ -183,7 +182,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
+                          //call the function and pass in the hour;
                           Send_HourStatusRequest(context, "06");
                         },
                         child: Text("M"),
@@ -196,8 +195,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
-
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "07");
                         },
                         child: Text("M"),
@@ -210,8 +208,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
-
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "08");
                         },
                         child: Text("M"),
@@ -224,8 +221,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
-
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "09");
                         },
                         child: Text("M"),
@@ -238,8 +234,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
-
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "10");
                         },
                         child: Text("M"),
@@ -252,7 +247,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "11");
                         },
                         child: Text("M"),
@@ -265,8 +260,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
-
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "12");
                         },
                         child: Text("M"),
@@ -279,8 +273,7 @@ class Status_DateState extends State<Status_Date> {
                       child: RaisedButton(
                         textColor: Global().textColor2,
                         onPressed: () {
-                          print("you clicked QR code");
-
+                          //call the function and pass in the hour
                           Send_HourStatusRequest(context, "13");
                         },
                         child: Text("M"),
@@ -296,9 +289,11 @@ class Status_DateState extends State<Status_Date> {
       ),
     );
   }
-//**************************************************************************************
-  /// Create one series with sample hard coded data.
-  /// // ****************************************************************************
+
+
+  ///////////////////////////////////////////////////////////////////
+  //Create one series received data.
+  ///////////////////////////////////////////////////////////////////
   static List<charts.Series<GymActivity, String>> _createSampleData(String response)  {
     var today = new DateTime.now();
     print(today);
@@ -350,7 +345,7 @@ class Status_DateState extends State<Status_Date> {
     return [
       new charts.Series<GymActivity, String>(
         id: 'People',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
         domainFn: (GymActivity people, _) => people.date,
         measureFn: (GymActivity people, _) => people.people,
         data: data,
@@ -358,8 +353,11 @@ class Status_DateState extends State<Status_Date> {
     ];
   }
 }
-// ****************************************************************************
-/// Sample data type.
+
+
+///////////////////////////////////////////////////////////////////
+// GymActivity class/model
+///////////////////////////////////////////////////////////////////
 class GymActivity {
   String date;
   var people;
@@ -371,12 +369,14 @@ class GymActivity {
 
 
 
-// function to perform post request
-// ****************************************************************************
+///////////////////////////////////////////////////////////////////
+// function to perform Hour Status request
+///////////////////////////////////////////////////////////////////
 void Send_HourStatusRequest(BuildContext context, String previousDay) async {
-  //url of local database
+  //get the token information from the secure storage
   String gettoken =await Global().username.read(key: "jwt");
   String token = gettoken.substring(10,50);
+  //url of local database
   final String apiUrl = "http://10.0.2.2:8000/api/checkin/getHourStatus";
   final response = await http.get(
     apiUrl,
@@ -384,13 +384,11 @@ void Send_HourStatusRequest(BuildContext context, String previousDay) async {
       "Authorization": "Token " + token
     },
   );
-  fullResponse = response.statusCode.toString() + response.body;
+  //fullResponse = response.statusCode.toString() + response.body;
   fullResponse = previousDay.toString() + response.body;
-
   Navigator.push(
     context,
-    MaterialPageRoute(
-        builder: (context) =>
-            Status_Hour(fullResponse)),
+    //go to new page and pass the full response to it
+    MaterialPageRoute(builder: (context) => Status_Hour(fullResponse)),
   );
 }
