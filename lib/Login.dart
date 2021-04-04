@@ -33,7 +33,7 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 40.0),
             Image(
-              image: AssetImage(Global().profilePicture),
+              image: AssetImage(Global().logo),
               width: 200,
               height: 200,
             ),

@@ -6,11 +6,10 @@ class Global {
    Color buttonColor = Colors.red;
    Color textColor1 = Colors.red;
    Color textColor2 = Colors.white;
-   String profilePicture = "assets/Semeion.jpg";
-   String logo = "assets/Semeion.jpg";
+   String profilePicture = "assets/logo.png";
+   String logo = "assets/logo.png";
    final storage = FlutterSecureStorage();
    final username = FlutterSecureStorage();
    String StrToken;
    String StrUsername;
-
 }

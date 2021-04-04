@@ -301,6 +301,7 @@ class Status_DateState extends State<Status_Date> {
   /// // ****************************************************************************
   static List<charts.Series<GymActivity, String>> _createSampleData(String response)  {
     var today = new DateTime.now();
+    print(today);
     List dateData = jsonDecode(response.substring(3,));
     final data = [
       new GymActivity(

@@ -28,3 +28,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/Semeion.jpg
+    - assets/logo.jfif
+    - assets/logo.png

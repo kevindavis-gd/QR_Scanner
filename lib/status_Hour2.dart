@@ -127,8 +127,8 @@ class Status_HourState extends State<Status_Hour> {
   /// Create one series with sample hard coded data.
   static List<charts.Series<GymActivity, String>> _createSampleData(String response, int previousDays) {
     var lists = json.decode(response);
-    print(lists[0][1]);
-    print(previousDays);
+    //print(lists[0][17]);
+    //print(previousDays);
     final data = [
       new GymActivity("5", lists[previousDays][5]),
       new GymActivity("6", lists[previousDays][6]),
@@ -142,7 +142,7 @@ class Status_HourState extends State<Status_Hour> {
       new GymActivity("14", lists[previousDays][14]),
       new GymActivity("15", lists[previousDays][15]),
       new GymActivity("16", lists[previousDays][16]),
-      new GymActivity("17", lists[previousDays][14]),
+      new GymActivity("17", lists[previousDays][17]),
       new GymActivity("18", lists[previousDays][18]),
       new GymActivity("19", lists[previousDays][19]),
       new GymActivity("20", lists[previousDays][20]),
