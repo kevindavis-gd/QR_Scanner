@@ -103,18 +103,19 @@ class _MyAppState extends State<QR_Scanner> {
 //function to send the information to backend
 ///////////////////////////////////////////////////////////////////
 Future<void> SendQR (String QR) async {
+
   //get the token information from the secure storage
   String gettoken =await Global().storage.read(key: "jwt");
   String token = gettoken.substring(10,50);
+  String username = await Global().storage.read(key: "username");
   //url of local database
   final String apiUrl = "http://10.0.2.2:8000/api/checkin/scan/";
   final response = await http.post(
       apiUrl,
       headers: {"Authorization": "Token " + token},
       body:{
-        "mustangsID": "root",
-        "room": "1"} //change this to actual QR scanned
+        "mustangsID": username,
+        "room": QR} //needs to be changed to equipment ID
   );
-  print(response.statusCode);
-  print(token);
+  print(response.body);
 }

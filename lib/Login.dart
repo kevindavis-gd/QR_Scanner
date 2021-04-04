@@ -64,10 +64,8 @@ class Login extends StatelessWidget {
                   //save the token
                   var jwt = fullResponse.substring(3,);
                   if(jwt != null) {
-                    Global().username.write(key: "username", value: mNumberField.getText().text);
-                    Global().StrUsername = mNumberField.getText().text;
+                    Global().storage.write(key: "username", value: mNumberField.getText().text);
                     Global().storage.write(key: "jwt", value: jwt);
-                    Global().StrToken = jwt.toString();
                   }
                   Navigator.push(context, MaterialPageRoute(builder: (context) => Home_Page()));
                 }
