@@ -104,12 +104,9 @@ Future<void> SendQR (String QR) async {
       headers: {"Authorization": "Token " + token},
       body:{
         "mustangsID": "root",
-        "room": "1"}
+        "room": "1"} //change this to actual QR scanned
   );
   //print(response.body);
   print(response.statusCode);
-  //first 3 char is the response code
-  //fullResponse = response.statusCode.toString() + response.body;
-  //List data = jsonDecode(response.body);
-  //return fullResponse;
+  print(token);
 }
