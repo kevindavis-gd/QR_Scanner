@@ -64,6 +64,7 @@ class Signup extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 30.0),
             RaisedButton(
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
               textColor: Global().textColor2,
               //mark function as async
               onPressed: () async{
@@ -96,8 +97,16 @@ class Signup extends StatelessWidget {
                   }
                 }
                 else{
-                  //display alert box
-                  displayDialogAlert(context, AlertType.error, "Error", responseBody);
+                  Map<String, dynamic>  map = jsonDecode(fullResponse.substring(3,));
+
+                  if(map['email'].toString() == "[Enter a valid email address.]")
+                    displayDialogAlert(context, AlertType.error, "Error", "Please enter a valid email address");
+                  else if(map['password1'].toString() == "[Ensure this field has at least 8 characters.]" || map['password2'].toString() == "[Ensure this field has at least 8 characters.]")
+                    displayDialogAlert(context, AlertType.error, "Error", "Ensure password has at least 8 characters");
+                  else if(map['username'].toString() == "[This field must be unique.]" || map['email'].toString() == "[This field must be unique.]")
+                    displayDialogAlert(context, AlertType.error, "Error", "User already exists");
+                  else if(map['first_name'] != null || map['last_name'] != null || map['username'] != null || map['email'] != null || map['password1'] != null || map['password2'] != null)
+                      displayDialogAlert(context, AlertType.error, "Error", "Please fill in all fields");
                 }
               },
               child: Text("Signup"),
@@ -109,7 +118,6 @@ class Signup extends StatelessWidget {
     );
   }
 }
-
 
 //////////////////////////////////////////////////////////
 // function to perform send request for user registration

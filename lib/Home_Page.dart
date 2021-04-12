@@ -1,16 +1,24 @@
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'QR_Scanner.dart';
 import 'package:qr_scanner/Global.dart';
 import 'package:qr_scanner/User_History.dart';
 import 'package:qr_scanner/Workout_Tutorials2.dart';
 import'status_Date.dart';
+import 'package:qr_scanner/Login.dart';
 import "package:http/http.dart" as http;
+import 'package:qr_scanner/Questionnaire.dart';
 
 
 /////////////////////////////////////////////////
 //Main home page with multiple options
 /////////////////////////////////////////////////
 class Home_Page extends StatelessWidget {
+
+  double fontsize = 15;
+  double buttonwidth = 150;
+  double buttonheight = 40;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +40,18 @@ class Home_Page extends StatelessWidget {
               //inserts an image widget
               Image(
                 image: AssetImage(Global().logo),
-                width: 200,
+                width: 200 ,
                 height: 200,
               ),
               //*************************QR Scanner Button *********************
               //add space between text boxes
-              SizedBox(height: 60.0),
+              SizedBox(height: 20.0),
               //this sized box is used to contain a button
               SizedBox(
-                width: 100.0,
-                height: 50.0,
+                width: buttonwidth ,
+                height: buttonheight,
                 child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
                   textColor: Global().textColor2,
                   //when the button is pressed do something
                   onPressed: () {
@@ -54,33 +63,36 @@ class Home_Page extends StatelessWidget {
                     );
                   },
                   //the text of the button
-                  child: Text("QR Code"),
+                  child: Text("QR Code", style: TextStyle(fontSize: fontsize)),
                   //color of button
                   color: Global().buttonColor,
+
                 ),
               ),
               //*************************Status Button *********************
-              SizedBox(height: 30.0),
+              SizedBox(height: 20.0),
               SizedBox(
-                width: 100.0,
-                height: 50.0,
+                width: buttonwidth ,
+                height: buttonheight,
                 child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
                   textColor: Global().textColor2,
                   onPressed: () {
-                    print("you clicked Status");
+                    print("you clicked Gym Usage");
                     //call the function to get the data from backend
                     Send_DateStatusRequest(context);
                   },
-                  child: Text("Status"),
+                  child: Text("Gym Usage", style: TextStyle(fontSize: fontsize)),
                   color: Global().buttonColor,
                 ),
               ),
               //*************************User History Button *********************
-              SizedBox(height: 30.0),
+              SizedBox(height: 20.0),
               SizedBox(
-                width: 100.0,
-                height: 50.0,
+                width: buttonwidth ,
+                height: buttonheight,
                 child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
                   textColor: Global().textColor2,
                   onPressed: () {
                     print("you clicked History");
@@ -90,16 +102,17 @@ class Home_Page extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => User_History()),
                     );
                   },
-                  child: Text("History"),
+                  child: Text("History", style: TextStyle(fontSize: fontsize)),
                   color: Global().buttonColor,
                 ),
               ),
               //*************************Work Tutorial Button *********************
-              SizedBox(height: 30.0),
+              SizedBox(height: 20.0),
               SizedBox(
-                width: 100.0,
-                height: 50.0,
+                width: buttonwidth ,
+                height: buttonheight,
                 child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
                   textColor: Global().textColor2,
                   onPressed: () {
                     print("you clicked Workout Tutorials");
@@ -109,7 +122,57 @@ class Home_Page extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => Workout_Tutorials2()),
                     );
                   },
-                  child: Text("Workouts"),
+                  child: Text("Workouts", style: TextStyle(fontSize: fontsize)),
+                  color: Global().buttonColor,
+                ),
+              ),
+              //*************************Questionnaire *********************
+              SizedBox(height: 20.0),
+              //this sized box is used to contain a button
+              SizedBox(
+                width: buttonwidth ,
+                height: buttonheight,
+                child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
+                  textColor: Global().textColor2,
+                  //when the button is pressed do something
+                  onPressed: () {
+                    Global().storage.deleteAll();
+                    print("you clicked Questionnaire");
+                    Navigator.push(
+                      context,
+                      //go to a new page/view
+                      MaterialPageRoute(builder: (context) => Questionnaire()),
+                    );
+                  },
+                  //the text of the button
+                  child: Text("Questionnaire", style: TextStyle(fontSize: fontsize)),
+                  //color of button
+                  color: Global().buttonColor,
+                ),
+              ),
+              //*************************Logout Button *********************
+              SizedBox(height: 20.0),
+              //this sized box is used to contain a button
+              SizedBox(
+                width: buttonwidth ,
+                height: buttonheight,
+                child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
+                  textColor: Global().textColor2,
+                  //when the button is pressed do something
+                  onPressed: () {
+                    Global().storage.deleteAll();
+                    print("you clicked Logout");
+                    Navigator.push(
+                      context,
+                      //go to a new page/view
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
+                  //the text of the button
+                  child: Text("Logout", style: TextStyle(fontSize: fontsize)),
+                  //color of button
                   color: Global().buttonColor,
                 ),
               ),

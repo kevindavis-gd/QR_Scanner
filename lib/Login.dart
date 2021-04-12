@@ -49,6 +49,7 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 60.0),
             RaisedButton(
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
               textColor: Global().textColor2,
               onPressed: () async {
                 //get the text from the email field
@@ -72,7 +73,14 @@ class Login extends StatelessWidget {
                 //if login not successful display message
                 else
                   {
-                    displayDialogAlert(context, AlertType.error, "Error", fullResponse.substring(3,));
+                    Map<String, dynamic>  map = jsonDecode(fullResponse.substring(3,));
+
+                    if(map['username'] != null)
+                      displayDialogAlert(context, AlertType.error, "Error", "mNumber " + map['username'].toString().substring(6,28));
+                    else if (map['password'] != null)
+                      displayDialogAlert(context, AlertType.error, "Error", "Password " + map['password'].toString().substring(6,28));
+                    else if (map['non_field_errors'] != null)
+                      displayDialogAlert(context, AlertType.error, "Error", map['non_field_errors'].toString().substring(1,43));
                   }
               },
               child: Text("Login"),
@@ -82,6 +90,7 @@ class Login extends StatelessWidget {
             //add space between text boxes
             SizedBox(height: 1.0),
             RaisedButton(
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
               textColor: Global().textColor2,
               onPressed: () async
               {
@@ -118,6 +127,7 @@ class Login extends StatelessWidget {
     print(response.statusCode.toString());
     //first 3 char is the response status code
     String fullResponse = response.statusCode.toString() + response.body;
+
     return fullResponse;
   }
 

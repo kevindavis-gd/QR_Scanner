@@ -49,9 +49,10 @@ class _MyAppState extends State<QR_Scanner> {
               //add space between text boxes
               SizedBox(height: 120.0),
               SizedBox(
-                width: 150.0,
-                height: 50.0,
+                width: 200.0,
+                height: 40.0,
                 child: RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),),
                   textColor: Global().textColor2,
                   onPressed: () async {
                     //call the scanQR function
@@ -106,10 +107,12 @@ Future<void> SendQR (String QR) async {
 
   //get the token information from the secure storage
   String gettoken =await Global().storage.read(key: "jwt");
+  print(gettoken);
   String token = gettoken.substring(10,50);
   String username = await Global().storage.read(key: "username");
   //url of local database
   final String apiUrl = "http://10.0.2.2:8000/api/checkin/scan/";
+  print(username);
   final response = await http.post(
       apiUrl,
       headers: {"Authorization": "Token " + token},
