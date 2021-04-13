@@ -64,7 +64,7 @@ class User_HistoryState extends State<User_History> {
                             color: Global().textColor2,
                             fontWeight: FontWeight.bold)),
                     subtitle: Text(
-                      data[index]['room'].toString(),
+                      data[index]['equipment'].toString().substring(8,),
                       style: TextStyle(color: Global().textColor2),
                     ),
                     trailing: Text(

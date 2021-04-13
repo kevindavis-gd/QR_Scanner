@@ -118,7 +118,7 @@ Future<void> SendQR (String QR) async {
       headers: {"Authorization": "Token " + token},
       body:{
         "mustangsID": username,
-        "room": QR} //needs to be changed to equipment ID
+        "equipment": QR} //needs to be changed to equipment ID
   );
   print(response.body);
 }

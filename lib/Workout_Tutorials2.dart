@@ -45,7 +45,7 @@ class _Workout_Tutorials2 extends State<Workout_Tutorials2> {
     YoutubePlayerController _controller1;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rachel's Workout Room"),
+        title: Text("Workout Room"),
         backgroundColor: Global().buttonColor,
       ),
       body: ListView.builder(

@@ -62,7 +62,11 @@ class _QuestionnaireState extends State<Questionnaire> {
                       });
                     },
                   ),
-                  Text('I do not have a fever'),
+                  Text('I do not have a fever',
+                      style: TextStyle(
+                          color: Global().textColor1,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
                 ],
               ),
               //*******************************************************
@@ -76,7 +80,11 @@ class _QuestionnaireState extends State<Questionnaire> {
                       });
                     },
                   ),
-                  Text('I do not have any Covid-19 symptoms'),
+                  Text('I do not have any Covid-19 symptoms',
+                      style: TextStyle(
+                      color: Global().textColor1,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0)),
                 ],
               ),
               //*******************************************************
@@ -90,7 +98,11 @@ class _QuestionnaireState extends State<Questionnaire> {
                       });
                     },
                   ),
-                  Text('I do not have any shortness of breath'),
+                  Text('I do not have any shortness of breath',
+                      style: TextStyle(
+                          color: Global().textColor1,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
                 ],
               ),
               //*******************************************************
@@ -104,7 +116,11 @@ class _QuestionnaireState extends State<Questionnaire> {
                       });
                     },
                   ),
-                  Text('I do not have a runny nose'),
+                  Text('I do not have a runny nose',
+                      style: TextStyle(
+                          color: Global().textColor1,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
                 ],
               ),
               //************************Submit button*********************
@@ -127,7 +143,7 @@ class _QuestionnaireState extends State<Questionnaire> {
                       displayDialogAlert(context, AlertType.error, "STOP", 'Please exit the gym and visit the nearest doctor for a Covid-19 test');
                     };
                   },
-                  child: Text("Signup"),
+                  child: Text("Submit"),
                   color: Global().buttonColor,
                 ),
               )
